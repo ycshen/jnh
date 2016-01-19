@@ -116,9 +116,9 @@ public class CmsUtil {
 	}
 	
 	/**
-	 * 静态化婚纱婚庆资讯
+	 * 静态化婚礼策划资讯
 	 */
-	public static void staticHQ(HttpServletRequest request) {
+	public static void staticWeddding(HttpServletRequest request) {
 		PageRequest pageRequest = new PageRequest(1, 6);
 		PageRequest pageRequest1 = new PageRequest(1, 1);
 		PageRequest pageRequest2 = new PageRequest(2, 6);
@@ -143,9 +143,9 @@ public class CmsUtil {
 	}
 	
 	/**
-	 * 静态化业界资讯
+	 * 静态化婚纱摄影资讯
 	 */
-	public static void staticYeJie(HttpServletRequest request) {
+	public static void staticShoot(HttpServletRequest request) {
 		PageRequest pageRequest = new PageRequest(1, 6);
 		PageRequest pageRequest1 = new PageRequest(1, 1);
 		PageRequest pageRequest2 = new PageRequest(2, 6);
@@ -170,20 +170,20 @@ public class CmsUtil {
 	}
 	
 	/**
-	 * 静态化业界资讯
+	 * 静态化婚纱礼服租赁资讯
 	 */
-	public static void staticCz(HttpServletRequest request) {
+	public static void staticDress(HttpServletRequest request) {
 		PageRequest pageRequest = new PageRequest(1, 6);
 		PageRequest pageRequest1 = new PageRequest(1, 1);
 		PageRequest pageRequest2 = new PageRequest(2, 6);
 		Page<Article> page = articleService.findPage(pageRequest,
-				"from Article where category.name = '婚纱礼服租赁资讯' order by id desc");
+				"from Article where category.name = '婚纱礼服资讯' order by id desc");
 		
 		Page<Article> page1 = articleService.findPage(pageRequest1,
-			"from Article where category.name = '婚纱礼服租赁资讯' order by id desc");
+			"from Article where category.name = '婚纱礼服资讯' order by id desc");
 		
 		Page<Article> page2 = articleService.findPage(pageRequest2,
-		"from Article where category.name = '婚纱礼服租赁资讯' order by id desc");
+		"from Article where category.name = '婚纱礼服资讯' order by id desc");
 		
 		Map<String,Object> model = Maps.newHashMap();
 		model.put("list", page.getResult());
@@ -218,10 +218,10 @@ public class CmsUtil {
 	public static void staticIndex(HttpServletRequest request) {
 		//CmsUtil.staticCompanyArt(request);
 		//CmsUtil.staticDianpu(request);
-		CmsUtil.staticYeJie(request);
 		//CmsUtil.staticHuodong(request);
-		CmsUtil.staticHQ(request);
-		CmsUtil.staticCz(request);  //彩妆
+		CmsUtil.staticShoot(request);
+		CmsUtil.staticWeddding(request);
+		CmsUtil.staticDress(request);  //彩妆
 	}
 	
 	/**
