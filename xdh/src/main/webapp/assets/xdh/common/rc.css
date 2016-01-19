@@ -1,0 +1,116 @@
+.nav_div ul li{
+	list-style:none;
+	float:left;
+	padding-top:10px;
+
+}
+
+.nav_div ul li a{
+	color:#fff;
+	margin-left: 20px;
+	font-weight: bold;
+	font-size: 18px;
+	vertical-align: middle;
+	height: 40px;
+	text-decoration: none;
+}
+
+
+.nav_div ul li a:hover{
+	color:#1c86ee;
+	margin-left: 20px;
+	font-weight: bold;
+	font-size: 18px;
+	vertical-align: middle;
+	height: 40px;
+}
+
+.btn2 {
+	width: 150px;
+	height: 36px;
+	font-weight: bold;
+	vertical-align: middle;
+	background-color: #ff3399;
+	color: #fff;
+	display: inline-block;
+	padding: 0 25px;
+	border: none;
+	border-radius: 3px;
+	overflow: visible;
+	font-size: 18px;
+	line-height: 36px;
+	font-family: "Hiragino Sans GB", "Microsoft YaHei", \9ED1\4F53,
+		\5b8b\4f53, sans-serif;
+	text-align: center;
+	cursor: pointer;
+	margin-top: 30px;
+}
+
+.btn3 {
+	width: 100px;
+	height: 36px;
+	font-weight: bold;
+	vertical-align: middle;
+	background-color: #ff3399;
+	color: #fff;
+	display: inline-block;
+	border: none;
+	border-radius: 3px;
+	overflow: visible;
+	font-size: 18px;
+	line-height: 36px;
+	font-family: "Hiragino Sans GB", "Microsoft YaHei", \9ED1\4F53,
+		\5b8b\4f53, sans-serif;
+	text-align: center;
+	cursor: pointer;
+}
+
+.btn1 {
+	width: 150px;
+	height: 36px;
+	font-weight: bold;
+	vertical-align: middle;
+	background-color: #7cb101;
+	color: #fff;
+	display: inline-block;
+	padding: 0 25px;
+	border: none;
+	border-radius: 3px;
+	overflow: visible;
+	font-size: 18px;
+	line-height: 36px;
+	font-family: "Hiragino Sans GB", "Microsoft YaHei", \9ED1\4F53,
+		\5b8b\4f53, sans-serif;
+	text-align: center;
+	cursor: pointer;
+	margin-top: 30px;
+}
+
+.zp_div ul li{
+	font-size:14px;
+	line-height:30px;
+	color: #444;
+	height: 30px;
+	list-style-type:none;
+	background:  url('1.jpg') no-repeat left center;
+	word-break:keep-all;
+	overflow:hidden;
+	padding-left:15px;
+}
+.zp_div ul {
+	padding-left: 20px;
+}
+
+a{
+	text-decoration: none;
+	color: #444;
+	font-size: 14px;
+}
+
+a:hover{
+	text-decoration: underline;
+}
+
+.foot{
+	text-align: center;
+}

@@ -1,0 +1,59 @@
+.caseshow_main{
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+	height: auto;
+}
+.caseshow_banner{
+	width: 1000px;
+	height:40px;
+	float:left;
+}
+.caseshow_banner_img{
+	height: 40px;
+	width: 250px;
+	float:left;
+}
+.caseshow_banner_nav{
+	width: 750px;
+	height: 40px;
+	float:left;
+ 	font: 14px Microsoft Yahei,Verdana,宋体,sans-serif;
+	text-align: right;
+	vertical-align: middle;
+}
+.caseshow_banner_nav a:hover{
+	color: #3ec0c0;
+}
+.caseshow_banner_nav a{
+	font: 14px Microsoft Yahei,Verdana,宋体,sans-serif;
+	color: #444;
+}
+
+.caseshowdetail_detail{
+	width: 1000px;
+	float:left;	
+}
+.caseshowdetail_detail_title{
+	width: 1000px;
+	float:left;
+	text-align: center;
+	font: 24px Microsoft Yahei,Verdana,宋体,sans-serif;
+	margin-bottom: 20px;
+}
+
+.caseshowdetail_detail_con{
+	width: 1000px;
+	float:left;
+	font: 12px Microsoft Yahei,Verdana,宋体,sans-serif;
+	line-height: 24px;
+}
+
+.caseshowdetail_detail_keywords{
+	width: 960px;
+	float:left;
+	font: 14px Microsoft Yahei,Verdana,宋体,sans-serif;
+	border: 1px solid #3ec0c0;
+	padding: 10px 20px 10px 20px;
+	border-radius: 20px;
+}

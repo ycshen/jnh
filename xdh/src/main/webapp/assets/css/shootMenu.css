@@ -1,0 +1,178 @@
+.shoot_main_div{
+	width: 1000px;
+	height: 350px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+
+.shoot_banner{
+	width: 100%;
+	height:auto;
+	
+}
+.shoot_banner_sub{
+	width: 280px;
+	height: 50px;
+	border: 1px solid #3ec0c0;
+	float: left;
+	font: 18px Microsoft Yahei,Verdana,瀹嬩綋,sans-serif;
+	text-align: center;
+	line-height: 50px;
+	margin-right: 24px;
+	margin-left: 24px;
+	margin-bottom: 20px;
+	color: #3ec0c0;
+	box-shadow: #3ec0c0 0px 0px 10px;
+}
+.shoot_banner_sub:hover{
+	background-color: #3ec0c0;
+	filter:alpha(opacity=70); /*IE婊ら暅锛岄�鏄庡害50%*/
+	-moz-opacity:0.7; /*Firefox绉佹湁锛岄�鏄庡害50%*/
+	opacity:0.7;
+	color: #FFF;
+	box-shadow: #3ec0c0 0px 0px 30px;
+	cursor: pointer;
+}
+.shoot_content{
+	width: 960px;
+	height: auto;
+	float: left;
+	line-height:28px;
+	font: 14px Microsoft Yahei,Verdana,瀹嬩綋,sans-serif; 
+	padding: 20px 20px 20px 20px;
+}
+.shoot_nav{
+	color: #444;
+	font: 14px Microsoft Yahei,Verdana,瀹嬩綋,sans-serif; 
+	width: 960px;
+	padding-left: 20px;
+}
+.shoot_nav a{
+	color: #444;
+	font: 14px Microsoft Yahei,Verdana,瀹嬩綋,sans-serif;
+	text-decoration: none; 
+}
+.shoot_title_a{
+	filter:alpha(opacity=70); /*IE婊ら暅锛岄�鏄庡害50%*/
+	-moz-opacity:0.7; /*Firefox绉佹湁锛岄�鏄庡害50%*/
+	opacity:0.7;
+	color: #FFF;
+	box-shadow: #3ec0c0 0px 0px 30px;
+	cursor: pointer;
+}
+.shoot_title{
+	width: 100%;
+	height: 40px;
+	text-align: center;
+	margin-bottom: 40px;
+	margin-top: 20px;
+}
+.shoot_title img{
+	border: 0px;
+}
+.shoot_banner_sub a{
+	color: #3ec0c0;
+	text-decoration: none; 
+	font: 18px Microsoft Yahei,Verdana,瀹嬩綋,sans-serif;
+	width: 280px;
+	height: 50px;
+	line-height: 50px;
+}
+
+
+
+.shoot_banner_sub a:hover{
+	color: #FFF;
+	text-decoration: none; 
+}
+
+
+.shoot_content_title{
+	text-align: center;
+	font: 18px Microsoft Yahei,Verdana,瀹嬩綋,sans-serif; 
+	height: 40px;
+	line-height: 40px;
+	color: #3ec0c0;
+	width: 960px;
+	
+}
+.shoot_content_con{
+	width: 960px;
+	height: auto;
+	float: left;
+	line-height:28px;
+	font: 14px Microsoft Yahei,Verdana,瀹嬩綋,sans-serif; 
+	padding: 20px 20px 20px 20px;
+	
+}
+
+/* .shoot_content_price{
+	text-align: left;
+	font: 18px Microsoft Yahei,Verdana,瀹嬩綋,sans-serif; 
+	height: 40px;
+	line-height: 40px;
+	color: red;
+	width: 960px;
+	font-weight: bold; 
+	padding: 0px 20px 0px 20px;
+	filter:alpha(opacity=70); IE婊ら暅锛岄�鏄庡害50%
+	-moz-opacity:0.7; Firefox绉佹湁锛岄�鏄庡害50%
+	opacity:0.7;
+}
+ */
+.shoot_content_model{
+	width: 100%;
+}
+.shoot_content_model_title{
+	width: 100px;
+	float: left;
+	font: 14px Microsoft Yahei,Verdana,瀹嬩綋,sans-serif; 
+	border-top: 1px dotted #3ec0c0;
+	text-align: center;
+}
+
+.shoot_content_model_con{
+	width: 859px;
+	float: left;
+	height; 30px;
+	font: 14px Microsoft Yahei,Verdana,瀹嬩綋,sans-serif; 
+	border-top: 1px dotted #3ec0c0;
+	border-left: 1px dotted #3ec0c0;
+	line-height: 30px;
+}
+
+.shoot_content_banner{
+	width: 100%;
+	height: 40px;
+	font: 18px Microsoft Yahei,Verdana,瀹嬩綋,sans-serif;
+	line-height: 40px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.shoot_content_price {
+	font: 18px Microsoft Yahei,Verdana,瀹嬩綋,sans-serif;
+	line-height: 40px;
+	height: 40px;
+	width: 300px;
+	background-color:  #3ec0c0;
+	text-align: center;
+	color: #fff;
+	border-radius: 10px;
+	float:left;
+}
+
+.shoot_content_banner_con{
+	font: 18px Microsoft Yahei,Verdana,瀹嬩綋,sans-serif;
+	line-height: 40px;
+	height: 40px;
+	width: 600px;
+	background-color:  #3ec0c0;
+	text-align: center;
+	color: #fff;
+	border-radius: 10px;
+	margin-left: 60px;
+	float:left;
+}

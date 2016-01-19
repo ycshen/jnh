@@ -1,0 +1,97 @@
+
+.main_div{
+	width: 100%;
+	height: auto;
+}
+.plan_main_div{
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.plan_query{
+	width: 1000px;
+	height: 50px;
+	text-align: center;
+	margin-top: 20px;
+}
+.plan_txt{
+	width: 400px;
+	height: 40px;
+	border: 1px solid #ccc;
+	line-height: 40px;
+	font: 24px Microsoft Yahei,Verdana,宋体,sans-serif;
+	padding-left: 20px;
+	padding-right: 20px;
+	
+}
+
+.plan_btn{
+	width: 200px;
+	height: 40px;
+	line-height: 40px;
+	border: 0px;
+	color: #fff;
+	background-color: #3ec0c0;
+	border-radius: 10px;
+	font: 24px Microsoft Yahei,Verdana,宋体,sans-serif;
+}
+.plan_con{
+	border: 1px solid #ccc;
+	height: 280px;
+	width: 100%;
+	padding-top: 10px;
+}
+
+.plan_colomu{
+	width: 50%;
+	float:left;
+	height: 30px;
+	line-height: 30px;
+	font: 14px Microsoft Yahei,Verdana,宋体,sans-serif;
+}
+
+.plan_colomu_left{
+	width: 50%;
+	float:left;
+	height: 30px;
+	line-height: 30px;
+	font: 14px Microsoft Yahei,Verdana,宋体,sans-serif;
+	text-align: right;
+}
+.plan_colomu_right{
+	width: 50%;
+	float:left;
+	height: 30px;
+	line-height: 30px;
+	font: 14px Microsoft Yahei,Verdana,宋体,sans-serif;
+}
+.plan_tip{
+	width: 1000px;
+	text-align: center;
+	font: 14px Microsoft Yahei,Verdana,宋体,sans-serif;
+}
+.plan_row{
+	width: 100%;
+	float:left;
+	height: auto;
+	line-height: 30px;
+	font: 14px Microsoft Yahei,Verdana,宋体,sans-serif;
+}
+
+.plan_row_left{
+	width: 10%;
+	float:left;
+	height: 90px;
+	line-height: 30px;
+	font: 14px Microsoft Yahei,Verdana,宋体,sans-serif;
+	text-align: right;
+	color: red;
+}
+.plan_row_right{
+	width: 90%;
+	float:left;
+	height: 90px;
+	line-height: 30px;
+	font: 14px Microsoft Yahei,Verdana,宋体,sans-serif;
+	color: red;
+}

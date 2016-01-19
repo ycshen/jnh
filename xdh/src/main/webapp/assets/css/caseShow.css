@@ -1,0 +1,91 @@
+.caseshow_main{
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+	height: auto;
+}
+.caseshow_banner{
+	width: 1000px;
+	height:105px;
+	float:left;
+}
+.caseshow_banner_img{
+	height: 40px;
+	width: 250px;
+	float:left;
+}
+.caseshow_banner_nav{
+	width: 750px;
+	height: 40px;
+	float:left;
+ 	font: 14px Microsoft Yahei,Verdana,宋体,sans-serif;
+	text-align: right;
+	vertical-align: middle;
+}
+.caseshow_banner_nav a:hover{
+	color: #3ec0c0;
+}
+.caseshow_banner_nav a{
+	font: 14px Microsoft Yahei,Verdana,宋体,sans-serif;
+	color: #444;
+}
+.caseshow_banner_detail{
+	width: 100%;
+	height: 61px;
+	text-align: center;
+}
+.caseshow_banner_detail img{
+	margin: 0px 30px 0px 30px;
+	cursor: pointer;
+}
+.caseshow_list{
+	width: 1000px;
+	height: auto;
+	margin-top: 20px;
+	float:left;
+	
+}
+.caseshow_list a{
+	float:left;
+	margin: 20px 30px 20px 50px;
+}
+
+.caseshow_list a:hover{
+	color: #3ec0c0;
+}
+
+.caseshow_list a{
+	text-decoration:none;
+}
+.caseshow_page{
+	width: 1000px;
+	height: 40px;
+	float:left;
+	text-align: center;
+}
+.caseshow_page_div{
+	float:left;
+	margin: 0px 10px 0px 10px;
+	height: 24px;
+	padding-top:2px;
+	border: 1px solid #3ec0c0;
+ 	font: 14px Microsoft Yahei,Verdana,宋体,sans-serif;
+ 	padding: 0px 10px 0px 10px;
+	text-align: center;
+	
+}
+.caseshow_page_center{
+	height: 40px;
+	float:left;
+	width: 600px;
+	margin-left: 200px;
+	
+}
+.caseshow_page_div a:hover{
+	color: #444;
+}
+.caseshow_page_div a{
+	text-decoration:none;
+ 	font: 14px Microsoft Yahei,Verdana,宋体,sans-serif;
+	
+}

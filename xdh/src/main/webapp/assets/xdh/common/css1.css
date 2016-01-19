@@ -1,0 +1,290 @@
+@charset "gb2312";
+/* CSS Document */
+
+*{padding:0px;margin:0px;}
+a{ color:#000; text-decoration:none}
+a:hover{ color:#4490f7}
+span a{ cursor:hand}
+a span{ cursor:hand}
+
+.fl{ float:left;font-size:14px;}
+.fr{ float:right}
+.cr{ clear:right}
+.cl{ clear:left}
+
+.zi14{ font-size:14px}
+.zi16{ font-size:16px}
+.jiacu{ font-weight:bold}
+.l20{ line-height:20px;}
+.l25{ line-height:25px;}
+.l30{ line-height:30px;}
+.m-t-10{ margin-top:10px;}
+.m-t-15{ margin-top:15px;}
+.m-b-10{ margin-bottom:10px;}
+.m-b-15{ margin-bottom:15px;}
+.w100{ width:100%}
+
+.w100 img{width: 100%;}
+.baise{ color:#ffffff}
+.shijian{ float:right; color:#CCC}
+
+.daohang {
+	line-height: 37px;
+	float: left;
+	height: 37px;
+	width: 100%;
+}
+.daohang a {
+	line-height: 37px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #4490f7;
+	text-align: center;
+	float: left;
+	width: 110px; font-family:"ºÚÌå"
+}
+.daohang a:hover{ color:#FFF}
+.cont1 {
+	float: left;
+	width: 100%;
+	/* margin-top: 20px; */
+}
+.box_310 {
+	float: right;
+	height: auto;
+	width: 310px;
+}
+.boxcont {
+	padding: 2%;
+	float: left;
+	height: auto;
+	width: 96%;
+	line-height: 20px;
+}
+.cont1 .box_310 .boxcont .w100.m-t-10 p { text-indent:2em}
+.box_380 {
+	float: left;
+	height: auto;
+	width: 380px;
+	padding-left: 15px;
+	overflow: hidden;
+}
+.title1 {
+	line-height: 30px;
+	background-image: url(hualing_r4_c9.jpg);
+	background-repeat: no-repeat;
+	background-position: left center;
+	float: left;
+	height: 30px;
+	width: 100%;
+}
+.title1 a {
+	font-weight: bold;
+	font-size: 13px;
+	height: 30px;
+	width: 88px;
+	float: left;
+	text-align: center;
+}
+.box_380 .boxcont a {
+	float: left;
+	height: 30px;
+	width: 96%;
+	clear: left;
+	line-height: 30px;
+	background-image: url(1.jpg);
+	background-repeat: no-repeat;
+	background-position: left center;
+	padding-left: 4%;
+}
+.more {
+	float: right;
+	height: 18px;
+	width: 40px;
+	padding-top: 6px;
+}
+.cont1 .box_380 .title1 .more a {
+	width: auto;
+	height: auto;
+	float: none;
+	margin: 0px;
+	padding: 0px;
+}
+.lianxi {
+	background-image: url(xdh_phone.jpg);
+	background-repeat: no-repeat;
+	background-position: center top;
+	float: left;
+	height: 140px;
+	width: 275px;
+	padding-top: 100px;
+}
+.qq {
+	text-align: center;
+	width: 100%;
+	line-height: 40px;
+	float: left;
+	height: 50px;
+}
+.dizhi {
+	line-height: 32px;
+	float: left;
+	height: 80px;
+	width: 90%;
+	padding-right: 5%;
+	padding-left: 5%;
+	font-size: 13px;
+	padding-top: 5px;
+	line-height: 20px;
+}
+.dianpu {
+	background-color: #F7F7F7;
+	float: left;
+	width: 978px;
+	padding: 10px;
+	border: 1px solid #ECECEC;
+}
+.dianpu a img {
+	background-color: #FFF;
+	padding: 2px;
+	float: left;
+	width: 175px;
+	border: 1px solid #ECECEC;
+}
+.dianpu a {
+	float: left;
+	width: 181px;
+	line-height: 30px;
+	height: auto;
+	padding-right: 7px;
+	padding-left: 7px;
+}
+.dianpu a p {
+	float: left;
+	width: 100%;
+	text-align: center;
+	font-size: 14px;
+}
+.foot {
+	/*
+	background-repeat: repeat-x;
+	background-position: center top; */
+	float: left;
+	height: 83px;
+	width: 1000px;
+	margin-top: 15px;
+	line-height: 30px;
+	text-align: center;
+	padding-top: 30px;
+	margin-left:auto;
+	margin-right:auto;
+}
+.left {
+	float: left;
+	height: auto;
+	width: 199px;
+}
+.left_title {
+	line-height: 44px;
+	background-image: url(neititle.jpg);
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-align: center;
+	float: left;
+	height: 44px;
+	width: 199px;
+	color: #FFF;
+	font-size: 14px;
+	font-weight: bold;
+}
+.leftbox {
+	background-image: url(nei_bg.jpg);
+	background-repeat: repeat-y;
+	background-position: left top;
+	float: left;
+	height: auto;
+	width: 199px;
+	padding-bottom: 30px;
+	padding-top: 20px;
+}
+.leftbox a {
+	line-height: 33px;
+	background-image: url(nei_l_bg.jpg);
+	background-repeat: no-repeat;
+	background-position: left center;
+	float: left;
+	height: 33px;
+	width: 199px;
+	text-align: center;
+	display: block;
+}
+.leftbox a:hover{ background:url(nei_l_hover.jpg) no-repeat center left; font-size:14px; font-weight:bold}
+.right {
+	float: right;
+	height: auto;
+	width: 770px;
+}
+.right_title {
+	line-height: 38px;
+	color: #5B5B5B;
+	background-image: url(nei_title.jpg);
+	background-repeat: no-repeat;
+	background-position: left center;
+	float: left;
+	height: 38px;
+	width: 740px;
+	padding-left: 22px;
+}
+.titleleft {
+	float: left;
+	width: 200px;
+	color: #666;
+	font-size: 13px;
+	font-weight: bold;
+}
+.titleright {
+	float: right;
+	height: auto;
+	width: 450px;
+	color: #999;
+	text-align: right;
+}
+.titleright a {
+	color: #999;
+}
+.neicont {
+	float: left;
+	height: auto;
+	width: 96%;
+	/* padding-top: 20px; */
+	padding-right: 2%;
+	padding-bottom: 20px;
+	padding-left: 2%;
+	line-height: 25px;
+}
+.neicont p { text-indent:2em;}
+.cont1 .right .neicont .w100 a {
+	clear: left;
+	float: left;
+	width: 100%;
+	border-bottom-width: 1px;
+	border-bottom-style: dashed;
+	border-bottom-color: #CCC;
+	line-height: 30px;
+	height: 30px;
+}
+h2{
+	width: 100%;
+	text-align: center;
+	line-height:50px;
+	height:50px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #CCC;
+}
+.cont1 .right .neicont .dianpu a {
+	padding-right: 5px;
+	padding-left: 5px;
+}
+.lianjie a img{ border:1px #CCC solid; padding:2px;}
+.link01{ float:left; margin:0px 15px 5px 0; display:inline}
