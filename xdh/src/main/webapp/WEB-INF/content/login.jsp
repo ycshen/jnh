@@ -81,6 +81,12 @@
 			</div>
 			
 		</div>
+		<div class="login_tips">
+			导航：<a href="${ctx}/xdh/index.html">首页</a> 
+			<a href="${ctx }/xdh/weddingPrice/2.html">套系报价</a> 
+			<a href="${ctx }/xdh/list/57.html">婚礼资讯</a>
+			<a href="${ctx }/xdh/caseshow/caseshow.html?cid=40">案列展示</a>
+		</div>
 	</div>
 	
 </body>
