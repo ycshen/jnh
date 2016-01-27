@@ -15,8 +15,8 @@ $(function(){
 });
 </script>	
 <div id="kinMaxShow" style="width:100%;max-width:1920px;height:600px;margin-left:auto;margin-right:auto;float:left;">
-   <div><a href="http://www.52jnh.com" target="_blank"><img alt="" src="${ctx }/assets/xdh/common/scroll_1.png"></a></div>
-   <div><a href="http://www.52jnh.com" target="_blank"><img alt="" src="${ctx }/assets/xdh/common/scroll_2.png"></a></div>
-   <div><a href="http://www.52jnh.com" target="_blank"><img alt="" src="${ctx }/assets/xdh/common/scroll_3.jpg"></a></div>
+   <div><a href="http://www.52jnh.com" target="_blank"><img alt="" src="${ctx }/upload/scroll/scroll_1.png"></a></div>
+   <div><a href="http://www.52jnh.com" target="_blank"><img alt="" src="${ctx }/upload/scroll/scroll_2.png"></a></div>
+   <div><a href="http://www.52jnh.com" target="_blank"><img alt="" src="${ctx }/upload/scroll/scroll_3.png"></a></div>
 </div>
 	

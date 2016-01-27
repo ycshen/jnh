@@ -23,6 +23,17 @@ public interface CmsConstants {
 	String ART_IMG_PATH = "artimgpath";
 	
 	/**
+	 * scroll图片地址
+	 */
+	String SCROLL_IMG_PATH = "scroll";
+	
+	/**
+	 * scroll 1 2 3图片地址
+	 */
+	String SCROLL_IMG_ONE  = "upload/"+CmsConstants.SCROLL_IMG_PATH+"/scroll_1.png";
+	String SCROLL_IMG_TWO  = "upload/"+CmsConstants.SCROLL_IMG_PATH+"/scroll_2.png";
+	String SCROLL_IMG_THREE  = "upload/"+CmsConstants.SCROLL_IMG_PATH+"/scroll_3.png";
+	/**
 	 * 万网域名查询地址
 	 */
 	

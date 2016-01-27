@@ -58,6 +58,13 @@ public class CmsUtil {
 				+ Constants.UPLOAD_FOLDER_NAME + "/"
 				+ CmsConstants.ART_IMG_PATH;
 	}
+	
+	/**
+	 * 获取SCROLL图片upload地址
+	 */
+	public static String getScrollImgPath(HttpServletRequest request) {
+		return ServletUtils.getRealPath(request) + "/" + Constants.UPLOAD_FOLDER_NAME + "/" + CmsConstants.SCROLL_IMG_PATH;
+	}
 
 	/**
 	 * 获取当前站点没有就设置
