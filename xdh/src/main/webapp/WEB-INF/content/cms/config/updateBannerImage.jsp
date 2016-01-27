@@ -31,13 +31,12 @@
 				</tr>
 				<tr>
 					<td style="text-align: center;"> <button type="submit" class="btn btn-default">更新图片</button></td>
-					<td style="text-align: center;"><button type="button" class="btn btn-default">关闭</button></td>
 				</tr>
 				
 			</table>
 					  
 		</form>
-		<span style="color:red;">${result}</span><a href="http://www.52jnh.com">查看更新状况</a><br/>
+		<span style="color:red;">${result}</span><a href="http://www.52jnh.com" target="_blank">查看更新状况</a><br/>
 		首页banner图片地址：
 		http://www.52jnh.com/upload/scroll/scroll_1.png
 		http://www.52jnh.com/upload/scroll/scroll_2.png
