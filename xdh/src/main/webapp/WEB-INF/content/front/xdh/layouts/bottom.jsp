@@ -21,6 +21,7 @@
 			<ul>
 				<li><a href="${ctx }/wz/help">赞助我们</a></li>
 				<li><a href="${ctx }/xdh/ourLink.html">婚礼导航</a></li>
+				<li><a href="${ctx }/wz/logList">访问统计</a></li>
 			</ul>
 		</div>
 		<div style="float:left;width:250px;height:120px;" class="btm_ul">
