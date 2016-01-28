@@ -15,6 +15,7 @@ import org.apache.shiro.subject.Subject;
 import org.guess.core.Constants;
 import org.guess.core.utils.security.Coder;
 import org.guess.core.utils.web.ServletUtils;
+import org.guess.showcase.cms.util.IpUtil;
 import org.guess.sys.model.Log;
 import org.guess.sys.model.User;
 import org.guess.sys.service.LogService;
@@ -102,6 +103,7 @@ public class LoginController {
 		if (currentUser.isAuthenticated()) {
 			try {
 				User curUser = userService.findByLoginId(userName);
+				logService.addListenerLog("查看登陆session的超时时间", "登陆session的超时时间：" + currentUser.getSession().getTimeout(), IpUtil.getIpAddr(request), userName);
 				logService.addOperLog("登陆成功", "系统登陆", ServletUtils.getIpAddr(request), curUser.getName());
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -148,6 +150,7 @@ public class LoginController {
 		if (currentUser.isAuthenticated()) {
 			try {
 				User curUser = userService.findByLoginId(userName);
+				logService.addListenerLog("查看登陆session的超时时间", "登陆session的超时时间：" + currentUser.getSession().getTimeout(), IpUtil.getIpAddr(request), userName);
 				logService.addOperLog("登陆成功", "系统登陆", ServletUtils.getIpAddr(request), curUser.getName());
 			} catch (Exception e) {
 				e.printStackTrace();

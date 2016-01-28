@@ -36,7 +36,6 @@
 			</table>
 					  
 		</form>
-		<span style="color:red;">${result}</span><a href="http://www.52jnh.com" target="_blank">查看更新状况</a><br/>
 		首页banner图片地址：
 		http://www.52jnh.com/upload/scroll/scroll_1.png
 		http://www.52jnh.com/upload/scroll/scroll_2.png
