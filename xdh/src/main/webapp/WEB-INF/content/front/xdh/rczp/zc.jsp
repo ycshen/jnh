@@ -91,8 +91,7 @@ function submit(){
 				alert("尊敬的嘉年华会员，恭喜你注册成功,赶快去登录吧!");
 				window.location.href = "rc.html";
 			}else {
-				alert("系统暂时繁忙，请联系客服028-68168188");
-				//window.location.href = "rc.html";
+				alert("系统暂时繁忙，请联系客服13608236574");
 			}
 		}
 	});
@@ -212,13 +211,7 @@ function submit(){
 				<input type="button" value="返回人才招聘" class="btn2" onclick="returnZp();"/>
 			</div>
 		</div>
-	</div>
-	
-<%-- 	<div style="width:1000px;;margin-left:auto;margin-right:auto;margin-top: 30px;border-top: 3px #484647 solid;">
-			<%@include file="../layouts/bottom.jsp" %>
-	</div> --%>
-	
-	<%@include file="../layouts/foot.jsp" %>
+	</div>	
 	
 </body>
 </html>
