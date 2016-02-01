@@ -5,6 +5,8 @@
 <html lang="en">
 <head>
 <title>嘉年华婚礼创意馆|嘉年华婚礼|成都嘉年华婚礼|嘉年华婚纱摄影|嘉年华婚礼策划|嘉年华宝宝宴|嘉年华造型设计|嘉年华商业演出|嘉年华礼服租赁|嘉年华花艺造型|嘉年华寿宴</title>
+
+<meta name="decorator" content="cms_xdh"/>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="Pragma" content="no-cache" />
@@ -36,11 +38,6 @@ function submit(){
 		return; 
 	}
 	
-	/* var remark = $("#remark").val();
-	if(remark == "" || remark.length > 50){
-		alert("必须输入正确的公司名称,长度小于50个字符");
-		return;
-	} */
 	var address = $("#address").val();
 	if(address == "" || address.length > 200){
 		alert("所在城市不能为空,（eg：成都、贵州、北京）");
@@ -91,7 +88,7 @@ function submit(){
 			if(v == "0"){
 				alert("已经存在相同的用户，请重新注册用户");
 			}else if(v == "1"){
-				alert("尊敬的西都汇会员，恭喜你注册成功,赶快去登录吧!");
+				alert("尊敬的嘉年华会员，恭喜你注册成功,赶快去登录吧!");
 				window.location.href = "rc.html";
 			}else {
 				alert("系统暂时繁忙，请联系客服028-68168188");
@@ -103,10 +100,6 @@ function submit(){
 </script>
 </head>
 <body>
-	
-	<div style="width:100%;height:80px;background-color:#D50168;">
-		<%@include file="nav.jsp" %>
-	</div>
 	<div style="width:1000px;margin-left:auto;margin-right:auto;margin-top:10px;color:#444;font-size:14px;">
 		<img src="${ctx }/assets/img/daohang.jpg" style="width:20px;height:20px;vertical-align: bottom;"/>
 		<a href="http://www.52jnh.com" style="color:#444;font-size:14px;">嘉年华</a>
@@ -118,7 +111,7 @@ function submit(){
 	<div style="width:1000px;min-height:600px;margin-left:auto;margin-right:auto;">
 		<div style="width: 1000px;float:left;height:80px;margin-top: 5px;">	
 		<div style="width: 500px;float:left;height:60px;padding-top:20px;">
-			<img src="${ctx }/assets/xdh/common/rc_zc.jpg"/>
+			<img src="${ctx }/assets/xdh/common/rc_zc.png"/>
 		</div>
 		<div style="width: 500px;float:left;height:80px;">
 			<input type="button" value="企业会员注册通道" class="btn3" onclick="javascript:location.href='qyzc.html'"/>
@@ -221,11 +214,11 @@ function submit(){
 		</div>
 	</div>
 	
-	<div style="width:1000px;;margin-left:auto;margin-right:auto;margin-top: 30px;border-top: 3px #484647 solid;">
-			<%@include file="layouts/index/flinks.jsp" %>
-	</div>
+<%-- 	<div style="width:1000px;;margin-left:auto;margin-right:auto;margin-top: 30px;border-top: 3px #484647 solid;">
+			<%@include file="../layouts/bottom.jsp" %>
+	</div> --%>
 	
-	<%@include file="foot.jsp" %>
+	<%@include file="../layouts/foot.jsp" %>
 	
 </body>
 </html>
