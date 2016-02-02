@@ -18,7 +18,11 @@
 				<%@ include file="category.jsp"%>
 				<div style="width:800px;float:left;">
 					<h2>${obj.title}</h2>
-					<p align="center" style="font-size:14px;font-family: 微软雅黑, 'Microsoft YaHei';">发布时间：<fmt:formatDate value="${obj.createDate }" pattern="yyyy-MM-dd hh:MM:ss"/></p>
+					<p align="center" style="font-size:14px;font-family: 微软雅黑, 'Microsoft YaHei';">
+					发布时间：<fmt:formatDate value="${obj.createDate }" pattern="yyyy-MM-dd hh:MM:ss"/> &nbsp;&nbsp;&nbsp;&nbsp;
+					访问量：${obj.hits }&nbsp;&nbsp;&nbsp;&nbsp;
+					作者：${obj.createBy.loginId }
+					</p>
 					<div style="padding:20px;width:760px;">
 						${obj.content}
 					</div>

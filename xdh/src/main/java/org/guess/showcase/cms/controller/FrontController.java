@@ -293,8 +293,8 @@ public class FrontController {
 
 		User user = userService.findByLoginId(rc.getLoginId());
 		mav.addObject("user", user);
-		// 增加点击量
-		//articleService.addHits(article);
+		rc.setHits(rc.getHits() + 1);
+		recruitService.update(rc);
 		mav.addObject("obj", rc);
 		mav.setViewName("/front/" + site + "/rczp/rcdetail");
 		return mav;
@@ -314,7 +314,8 @@ public class FrontController {
 		User user = userService.findByLoginId(gr.getLoginId());
 		mav.addObject("user", user);
 		// 增加点击量
-		//articleService.addHits(article);
+		gr.setHits(gr.getHits() + 1);
+		grService.update(gr);
 		mav.addObject("obj", gr);
 		mav.setViewName("/front/" + site + "/rczp/grdetail");
 		return mav;
@@ -469,18 +470,6 @@ public class FrontController {
 	public ModelAndView images(ModelAndView mav,
 			@PathVariable("site") String site, @PathVariable("cid") Long cid)
 			throws Exception {
-		/*Category category = categoryService.get(cid);
-		Set<String> cids = categoryService.getChlidIdsById(String.valueOf(cid));
-		List<PropertyFilter> filters = Lists.newArrayList();
-		for (String id : cids) {
-			filters.add(new PropertyFilter("EQL_category.id", id));
-		}
-		List<PropertyFilter> andfilters = Lists.newArrayList();
-		PageRequest pageRequest = new PageRequest(1, 1000);
-		Page<Article> pageData = articleService.findPage(pageRequest,
-				andfilters, filters);
-		mav.addObject("articles", pageData.getResult());
-		mav.addObject("category", category);*/
 		mav.setViewName("/front/" + site + "/images");
 		return mav;
 	}
