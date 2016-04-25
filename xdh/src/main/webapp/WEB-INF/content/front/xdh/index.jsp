@@ -5,9 +5,9 @@
 <head>
 <title>嘉年华婚礼创意馆官方网站</title>
 <meta name="decorator" content="cms_xdh"/>
-<link href="${ctx }/assets/xdh/css/cms.css" rel="stylesheet" type="text/css"></link>
-<link href="${ctx }/assets/css/hsfg.css" rel="stylesheet" type="text/css"/>
-<script src="${ctx }/assets/js/index.js" type="text/javascript"></script>
+<link href="${ctx}/assets/xdh/css/cms.css" rel="stylesheet" type="text/css"></link>
+<link href="${ctx}/assets/css/hsfg.css" rel="stylesheet" type="text/css"/>
+<script src="${ctx}/assets/js/index.js" type="text/javascript"></script>
 </head>
 <body>
 	<div style="width:100%;height:auto;">

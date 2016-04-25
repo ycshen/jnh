@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -21,8 +22,10 @@ import org.guess.core.orm.PageRequest.Sort;
 import org.guess.core.utils.web.ServletUtils;
 import org.guess.showcase.cms.model.Article;
 import org.guess.showcase.cms.model.Category;
+import org.guess.showcase.cms.model.Guest;
 import org.guess.showcase.cms.model.ListenerLog;
 import org.guess.showcase.cms.service.ArticleService;
+import org.guess.showcase.cms.service.GuestService;
 import org.guess.showcase.cms.service.ListenerLogService;
 import org.guess.showcase.cms.util.CmsConstants;
 import org.guess.showcase.cms.util.HttpUtil;
@@ -280,5 +283,70 @@ public class WebSiteFrontController {
 		}
 		
 		return result;
+	}
+	
+	@Autowired
+	private GuestService guestService;
+	/**
+	 * 客人统计
+	 * @param mav
+	 * @param p
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("wz/guest")
+	public ModelAndView guest(ModelAndView mav, 
+			@RequestParam(value="p",required=false,defaultValue="1") int p
+			) throws Exception {
+		
+		List<PropertyFilter> filters = Lists.newArrayList();		
+		List<PropertyFilter> andfilters = Lists.newArrayList();
+		PageRequest pageRequest = new PageRequest(p, 5000);
+		pageRequest.setOrderDir(Sort.DESC);
+		
+		Page<Guest> guestPage = guestService.findPage(pageRequest, andfilters, filters);
+		List<Guest> list = guestPage.getResult();
+
+		List<Guest> list_dx = new LinkedList<Guest>();
+		List<Guest> list_py = new LinkedList<Guest>();
+		List<Guest> list_fx = new LinkedList<Guest>();
+		List<Guest> list_gz = new LinkedList<Guest>();
+		List<Guest> list_qr = new LinkedList<Guest>();
+		int personNum = 0;
+		if(list != null && list.size() > 0){
+			personNum = list.size();
+			for (Guest guest : list) {
+				if("高中".equals(guest.getGuestType())){
+					list_gz.add(guest);
+				}
+				
+				if("大学".equals(guest.getGuestType())){
+					list_dx.add(guest);
+				}
+				
+				if("发小".equals(guest.getGuestType())){
+					list_fx.add(guest);
+				}
+				
+				if("朋友".equals(guest.getGuestType())){
+					list_py.add(guest);
+				}
+				
+				if("亲人".equals(guest.getGuestType())){
+					list_qr.add(guest);
+				}
+			}
+		}
+		
+		
+		mav.setViewName("/front/jnh/wz/other/guest");
+		mav.addObject("personNum", personNum);
+		mav.addObject("list_dx", list_dx);
+		mav.addObject("list_py", list_py);
+		mav.addObject("list_fx", list_fx);
+		mav.addObject("list_gz", list_gz);
+		mav.addObject("list_qr", list_qr);
+		
+		return mav;
 	}
 }
