@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sitemesh" uri="http://www.opensymphony.com/sitemesh/decorator"%>
-<c:set var="ctx" value="${pageContext.request.contextPath}" />
+<%@ include file="../../jnh/common/head.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
 <head>
@@ -27,7 +27,6 @@
 <script src="${ctx }/assets/js/jquery-1.8.3.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="${ctx }/assets/js/meilecheTop/js/meilecheTop.1.0.js"></script>
 <script type="text/javascript">
-
 $(function (){
 	$(window).meilecheTop({
 		showHeight : 100,//设置滚动高度时显示
