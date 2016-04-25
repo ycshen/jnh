@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="container" style="text-align: center;margin-top: 30px;">
 	<div class="row">
 	  <div class="col-xs-6">

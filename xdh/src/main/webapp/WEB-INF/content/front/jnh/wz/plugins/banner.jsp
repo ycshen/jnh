@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <style type="text/css">
 .navbar{
 	border: 0px;
@@ -14,25 +14,25 @@
 		     
 		   </div>
 		   <div class="navbar-header">
-		      <a class="navbar-brand" href="${pageContext.request.contextPath}/wz">首页</a>
+		      <a class="navbar-brand" href="${ctx}/wz">首页</a>
 		   </div>
 		    <div class="navbar-header">
-		      <a class="navbar-brand" href="${pageContext.request.contextPath}/wz/price">模板网站报价</a>
+		      <a class="navbar-brand" href="${ctx}/wz/price">模板网站报价</a>
 		   </div>
 		    <div class="navbar-header">
-		      <a class="navbar-brand" href="${pageContext.request.contextPath}/wz/customPrice">定制网站报价</a>
+		      <a class="navbar-brand" href="${ctx}/wz/customPrice">定制网站报价</a>
 		   </div>
 		    <div class="navbar-header">
-		      <a class="navbar-brand" href="${pageContext.request.contextPath}/wz/successCase">成功案列</a>
+		      <a class="navbar-brand" href="${ctx}/wz/successCase">成功案列</a>
 		   </div>
 		    <div class="navbar-header">
-		      <a class="navbar-brand" href="${pageContext.request.contextPath}/wz/model">模板选择</a>
+		      <a class="navbar-brand" href="${ctx}/wz/model">模板选择</a>
 		   </div>
 		    <div class="navbar-header">
-		      <a class="navbar-brand" href="${pageContext.request.contextPath}/wz/aboutUs">关于我们</a>
+		      <a class="navbar-brand" href="${ctx}/wz/aboutUs">关于我们</a>
 		   </div>
 		    <div class="navbar-header">
-		      <a class="navbar-brand" href="${pageContext.request.contextPath}/wz/linkUs">联系我们</a>
+		      <a class="navbar-brand" href="${ctx}/wz/linkUs">联系我们</a>
 		   </div>
 		</nav>
 	</div>

@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<c:set var="ctx" value="${pageContext.request.contextPath}" />
+<%@ include file="../common/head.jsp"%>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <title>联系我们-小青年网络科技有限公司 </title>
 <meta name="keywords" content="关于我们,网站建设报价，小青年,小青年网络科技，小青年网络科技有限公司,网站建设,400电话,域名注册,网站部署,SEO优化,微信公众平台" />
 <meta name="description" content="关于我们,网站建设报价，小青年,小青年网络科技，小青年网络科技有限公司,网站建设,400电话,域名注册,网站部署,SEO优化,微信公众平台" />
@@ -30,7 +30,7 @@
 	<%@ include file="plugins/banner.jsp"%>
 	<div class="container">	
 		<div class="a_title">
-			<img src="${pageContext.request.contextPath}/assets/img/wz/link.png"  class="img-responsive"/>
+			<img src="${ctx}/assets/img/wz/link.png"  class="img-responsive"/>
 		</div>	
 		<div class="a_con1">
 				
@@ -46,7 +46,7 @@
 		</div>
 		<div class="a_con">
 		公司地图：<br/>
-		<iframe class="ueditor_baidumap" src="${pageContext.request.contextPath}/assets/comp/ueditor/dialogs/map/show.html#center=104.058578,30.76997&zoom=18&width=530&height=340&markers=104.059054,30.769683&markerStyles=l,A" frameborder="0" width="534" height="344"></iframe>
+		<iframe class="ueditor_baidumap" src="${ctx}/assets/comp/ueditor/dialogs/map/show.html#center=104.058578,30.76997&zoom=18&width=530&height=340&markers=104.059054,30.769683&markerStyles=l,A" frameborder="0" width="534" height="344"></iframe>
 		</div>
 
 	</div>

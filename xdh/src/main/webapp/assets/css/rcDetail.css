@@ -1,0 +1,15 @@
+.100_#666{
+	font-size:14px;color:#666;line-height:28px;float:left;width:100px;
+}
+.150_#666{
+	font-size:14px;color:#666;line-height:28px;float:left;width:100px;
+}
+.100_#666_left{
+	font-size:14px;color:#666;line-height:28px;float:left;width:100px;text-align:left;
+}
+.small_title{
+	float:left;width:1000px;margin-top:10px;font-size:20px;color:#7cb101;line-height:40px;
+}
+.rc_content{
+	float:left;width:1000px;margin-top:10px;line-height:28px;font-size:14px;color:#666;
+}

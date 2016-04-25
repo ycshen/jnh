@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 
 <div class="container" style="min-height:30px;margin-top: 10px;margin-bottom: 10px;">
 <script type="text/javascript">
