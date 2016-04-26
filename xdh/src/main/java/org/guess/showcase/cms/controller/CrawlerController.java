@@ -2,6 +2,8 @@ package org.guess.showcase.cms.controller;
 
 import java.io.File;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,10 +12,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpUtils;
 
 import org.apache.commons.lang.StringUtils;
+import org.guess.core.orm.Page;
+import org.guess.core.orm.PageRequest;
+import org.guess.core.orm.PropertyFilter;
+import org.guess.core.orm.PageRequest.Sort;
 import org.guess.core.utils.DateUtil;
 import org.guess.core.utils.FileUtils;
 import org.guess.core.utils.UuidUtil;
 import org.guess.core.utils.web.ServletUtils;
+import org.guess.showcase.cms.model.Article;
 import org.guess.showcase.cms.model.CrawlerArticle;
 import org.guess.showcase.cms.service.CrawlerArticleService;
 import org.guess.showcase.cms.util.HttpUtil;
@@ -21,8 +28,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 
 /**
@@ -57,6 +66,29 @@ public class CrawlerController {
 		
 		return mav;
 	}
+	
+	/**
+	 * 文章详细
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("blog/page/{pageSize}")
+	public ModelAndView pageCrawlerArticle(@PathVariable(value="pageSize") Integer page){
+		if(page == null){
+			page = 1;
+		}
+		
+		ModelAndView mav = new ModelAndView("/front/jnh/blog/crawlerArticleList");
+		List<PropertyFilter> andfilters = Lists.newArrayList();
+		List<PropertyFilter> filters = Lists.newArrayList();
+		PageRequest pageRequest = new PageRequest(page, 20);
+		pageRequest.setOrderDir(Sort.DESC);
+		pageRequest.setOrderBy("id");
+		Page<CrawlerArticle> pageData = crawlerArticleService.findPage(pageRequest, andfilters, filters);
+		mav.addObject("page", pageData);
+		return mav;
+	}
+	
 	/**
 	 * 抓取www.javaseo.cn网站内容
 	 */
@@ -145,24 +177,47 @@ public class CrawlerController {
 	        crawlerArticle.setArticleType("1");
 	        crawlerArticle.setContent(content);
 	        crawlerArticle.setWebsiteName("javaseo");
+	        crawlerArticle.setDescrible(this.getDescByContent(content) + "......");
 			crawlerArticleService.save(crawlerArticle);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+	private String getDescByContent(String content){
+		String desc = content;
+		if(desc.length() > 500){
+        	desc = desc.substring(0,  500);
+        }
+		
+		desc = desc.replaceAll("\\&[a-zA-Z]{0,9};", "").replaceAll("<[^>]*>", "");
+		desc = desc.replaceAll(" ", "");
+		
+		return desc;
+	}
+	
 	public static void main(String[] args) {
 		String nextUrl = "http://www.javaseo.cn/article/32/";
 		String pageContent = HttpUtil.getUrl(nextUrl);
-		String regex = "<h1>([\\s\\S]*)</h1>";
+		String regex = "<p>([\\s\\S]*)</p>";
 		Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(pageContent);
         String title = "";
         while (m.find()) {
-        	title = m.group(1);
+        	title = m.group(0);
         }
         
-        System.out.println(title);
+        regex = "</h1>([\\s\\S]*)<div class=\"QA-text-foot\">";
+		p = Pattern.compile(regex);
+        m = p.matcher(pageContent);
+        String content = "";
+        while (m.find()) {
+        	content = m.group(1);
+        }
+        
+        String desc = "";// getDescByContent(content);
+        
+        System.out.println(desc);
 	}
 	
 }

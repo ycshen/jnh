@@ -29,6 +29,7 @@ public class CrawlerArticle extends DataEntity{
 	private String labelThree;
 	private String content;
 	private String websiteName;
+	private String describle;
 	public String getTitle() {
 		return title;
 	}
@@ -100,5 +101,11 @@ public class CrawlerArticle extends DataEntity{
 	}
 	public void setWebsiteName(String websiteName) {
 		this.websiteName = websiteName;
+	}
+	public String getDescrible() {
+		return describle;
+	}
+	public void setDescrible(String describle) {
+		this.describle = describle;
 	}
 }
