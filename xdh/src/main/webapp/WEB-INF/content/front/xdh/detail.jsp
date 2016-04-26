@@ -33,13 +33,7 @@
 							<div style="float:left;width: auto; height: 30px; background-color: #3ec0c0;color:#fff;margin-right: 20px;
 							line-height: 30px;padding:0px 15px 0px 15px;border-radius: 5px;">${label}</div>
 						</c:forEach>
-					</div>
-					<script type="text/javascript">
-    /*728*90 创建于 2015-12-04*/
-    var cpro_id = "u2432834";
-</script>
-<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
-					
+					</div>				
 				</div>
 			</div>
 		</div>

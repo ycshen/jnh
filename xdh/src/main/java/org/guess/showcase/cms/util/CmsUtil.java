@@ -60,6 +60,16 @@ public class CmsUtil {
 	}
 	
 	/**
+	 * 返回文章上传路径
+	 */
+	public static String getFileUploadPath(HttpServletRequest request) {
+		return ServletUtils.getRealPath(request) + "/"
+				+ Constants.UPLOAD_FOLDER_NAME + "/";
+	}
+	
+	
+	
+	/**
 	 * 获取SCROLL图片upload地址
 	 */
 	public static String getScrollImgPath(HttpServletRequest request) {

@@ -508,4 +508,11 @@ public class DateUtil {
         calendar.add(calendar.DATE,-1);//把日期往后增加一天.整数往后推,负数往前移动
         return DateUtil.format(calendar.getTime()); //这个时间就是日期往后推一天的结果
 	}
+	
+	public static String getDateStr(String format){
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		
+		return sdf.format(new Date());
+		
+	}
 }

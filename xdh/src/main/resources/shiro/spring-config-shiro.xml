@@ -57,6 +57,7 @@
 				/assets/**=anon
 				/xdh/**=anon
 				/wz/**=anon
+				/blog/**=anon
 				/upload/**=anon
 				/login=anon
 				/denglu=anon
