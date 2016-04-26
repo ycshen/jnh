@@ -119,17 +119,21 @@ public class CrawlerController {
 	        	imgUrl = m.group(1);
 	        }
 	        if(StringUtils.isNotBlank(imgUrl)){
-	        	String fileDirectoryUrl = ServletUtils.getRealPath(request) + "/upload/" + DateUtil.getDateStr("yyyyMMdd");
+	        	String dateStr =DateUtil.getDateStr("yyyyMMdd"); 
+	        	String fileDirectoryUrl = ServletUtils.getRealPath(request) + "/upload/" + dateStr;
 		        File file=new File(fileDirectoryUrl);    
 		        if(!file.exists() && !file .isDirectory()){    
 		        	file.mkdir();   
 		    	}
 	        	
-		        String newImgUrl = fileDirectoryUrl + "/" + UuidUtil.uuid2() + imgUrl.substring(imgUrl.lastIndexOf("."));
+		        String imgName = UuidUtil.uuid2() + imgUrl.substring(imgUrl.lastIndexOf("."));
+		        String newImgUrl = fileDirectoryUrl + "/" + imgName;
 		        FileUtils.download("http://www.javaseo.cn/" + imgUrl, newImgUrl);
-		        content = content.replace(imgUrl, newImgUrl);
+		        content = content.replace(imgUrl, "/upload/" + dateStr + "/" + imgName);
 	        }
-	        
+
+	        content = content.replace("http://javaseo.cn/article", "/blog");
+	        content = content.replace("http://www.javaseo.cn/article", "/blog");
 	        content = content.replace("http://www.javaseo.cn", "");
 	        content = content.replace("http://javaseo.cn", "");
 	        CrawlerArticle crawlerArticle = new CrawlerArticle();
