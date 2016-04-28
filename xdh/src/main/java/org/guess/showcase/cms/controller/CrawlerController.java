@@ -240,6 +240,27 @@ public class CrawlerController {
 	        	content = content.replace(m.group(0), "");
 	        }
 	        
+	        regex = "<footer class=\"post-footer\">([\\s\\S]*)</footer>";
+	        p = Pattern.compile(regex);
+	        m = p.matcher(content);
+	        while (m.find()) {
+	        	content = content.replace(m.group(0), "");
+	        }
+	        
+	        regex = "<span class=\"post_type_label \">([\\s\\S]*)</span>";
+	        p = Pattern.compile(regex);
+	        m = p.matcher(content);
+	        while (m.find()) {
+	        	content = content.replace(m.group(0), "");
+	        }
+	        
+	        regex = "<div class=\"clear\">([\\s\\S]*)</div>";
+	        p = Pattern.compile(regex);
+	        m = p.matcher(content);
+	        while (m.find()) {
+	        	content = content.replace(m.group(0), "");
+	        }
+	        
 	        String baiduADScript = "<script src=\"http://cpro.baidustatic.com/cpro/ui/c.js\" type=\"text/javascript\"></script>";
 	        content = content.replace(baiduADScript, "");
 	        regex = "<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>";
@@ -384,7 +405,7 @@ public class CrawlerController {
             }
         }
         */
-        String nextUrl = "http://chenpeng.info/html/" + 3533;
+        String nextUrl = "http://chenpeng.info/html/" + 94;
 		String pageContent = "";
 		try {
 			pageContent = HttpUtil.getByHttp(nextUrl);
@@ -459,6 +480,28 @@ public class CrawlerController {
         while (m.find()) {
         	System.out.println(m.group(0));
         }
+        
+        regex = "<footer class=\"post-footer\">([\\s\\S]*)</footer>";
+        p = Pattern.compile(regex);
+        m = p.matcher(content);
+        while (m.find()) {
+        	System.out.println(m.group(0));
+        }
+        
+        regex = "<span class=\"post_type_label \">([\\s\\S]*)</span>";
+        p = Pattern.compile(regex);
+        m = p.matcher(content);
+        while (m.find()) {
+        	System.out.println(m.group(0));
+        }
+        
+        regex = "<div class=\"clear\">([\\s\\S]*)</div>";
+        p = Pattern.compile(regex);
+        m = p.matcher(content);
+        while (m.find()) {
+        	System.out.println(m.group(0));
+        }
+        
 	}
 	
 }

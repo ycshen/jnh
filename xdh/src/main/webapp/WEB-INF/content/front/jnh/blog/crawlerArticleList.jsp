@@ -57,6 +57,8 @@
 	font: 14px Microsoft Yahei,Verdana,宋体,sans-serif;
 	margin-top: 20px;
 	margin-bottom: 20px;
+    word-break: break-all;
+    word-wrap: break-word;
 }
 </style>
 </head>

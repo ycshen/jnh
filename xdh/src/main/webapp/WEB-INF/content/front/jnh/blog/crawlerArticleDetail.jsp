@@ -17,6 +17,7 @@
 	width: 100%;
 	height: auto;
 	text-align: center;
+	
 }
 .a_con1{
 	width: 100%;
@@ -24,6 +25,9 @@
 	font: 14px Microsoft Yahei,Verdana,宋体,sans-serif;
 	margin-top: 20px;
 	margin-bottom: 20px;
+}
+.a_con1 pre{
+	max-width: 800px;
 }
 .a_con1_left{
 	width: 80%;
