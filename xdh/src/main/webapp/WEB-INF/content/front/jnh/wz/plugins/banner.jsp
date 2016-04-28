@@ -17,7 +17,7 @@
 		      <a class="navbar-brand" href="${ctx}/wz">首页</a>
 		   </div>
 		   <div class="navbar-header">
-		      <a class="navbar-brand" href="${ctx}/blog/page/">我的博客</a>
+		      <a class="navbar-brand" href="${ctx}/blog/page/1">我的博客</a>
 		   </div>
 		    <div class="navbar-header">
 		      <a class="navbar-brand" href="${ctx}/wz/price">模板网站报价</a>

@@ -26,14 +26,17 @@
 	font: 14px Microsoft Yahei,Verdana,宋体,sans-serif;
 	margin-top: 20px;
 	margin-bottom: 20px;
+	float:left;
 }
 .a_con1_left{
 	width: 80%;
+	float:left;
 }
 
 .a_con1_right{
 	width: 20%;
 	min-width: 200px;
+	float:left;
 }
 .a_con1_detail{ 
 	width: 100%;
@@ -76,7 +79,8 @@
 				
 			</div>
 			<div class="a_con1_right">
-			
+			<%@ include file="../wz/plugins/ad200_200.jsp"%>
+				
 			</div>
 		 	
 		</div>

@@ -22,6 +22,9 @@
 	<div class="caseshowdetail_detail">
 		<div class="caseshowdetail_detail_title">${obj.title}</div>
 		<div class="caseshowdetail_detail_con">
+			<%@ include file="../jnh/wz/plugins/ad1000_100.jsp"%>
+		</div>
+		<div class="caseshowdetail_detail_con">
 			${obj.content}
 		</div>
 		<div class="caseshowdetail_detail_keywords">
