@@ -46,7 +46,10 @@ public class CrawlerController {
 	@RequestMapping("wz/crawler")
 	public void crawler(HttpServletRequest request) {
 		craw_www_java_seo_cn(request);
+		craw_chenpeng_info(request);
 	}
+	
+	
 	
 	/**
 	 * 文章详细
@@ -116,6 +119,171 @@ public class CrawlerController {
 	}
 	
 	/**
+	 * 抓陈鹏博客
+	 * @param request
+	 */
+	private void craw_chenpeng_info(HttpServletRequest request){
+		String url = "http://chenpeng.info/";
+		String pageContent = "";;
+		try {
+			pageContent = HttpUtil.getByHttp(url);
+		} catch (Exception e1) {
+			return;
+		}
+		
+		if(StringUtils.isBlank(pageContent)){
+			return;
+		}
+		
+		String regex = "<article id=\"post-([\\d]*)\" style=\"overflow: hidden;\"";
+		Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(pageContent);
+        Integer maxId = 0;
+        while (m.find()) {
+            Integer artileId = Integer.parseInt(m.group(1)); 
+            if(artileId > maxId){
+            	maxId = artileId;
+            }
+        }
+        
+        Integer maxArticleId = crawlerArticleService.getMaxArticleIdByUrl(url);
+        if(maxId > maxArticleId){
+        	//继续爬文章内容
+        	//该博客文章过多，每次最多获取10篇
+        	int loopCount = 1;
+        	if(maxArticleId < 50){
+        		maxArticleId = 50;
+    		}
+        	for(int i = maxArticleId + 1; i <= maxId; i++){
+        		if(loopCount > 10){
+        			break;
+        		}
+        		
+        		loopCount ++;
+
+        		try{
+        			set_chengpeng_info_ContentById(i, request);
+        		}catch(Exception e){
+        			loopCount = loopCount - 1;
+        		}
+        		        		
+        	}
+        }
+	}
+	
+	/**
+	 * 根据文章id保存javaseo的内容
+	 * @param articleId 文章id
+	 * @throws Exception 
+	 */
+	private void set_chengpeng_info_ContentById(Integer articleId, HttpServletRequest request) throws Exception{
+		try{
+			String nextUrl = "http://chenpeng.info/html/" + articleId;
+			String pageContent = HttpUtil.getByHttp(nextUrl);
+			String regex = "<title>([\\s\\S]*?)</title>";
+			Pattern p = Pattern.compile(regex);
+	        Matcher m = p.matcher(pageContent);
+	        String title = "";
+	        while (m.find()) {
+	           title = m.group(1);
+	        }
+	        if(StringUtils.isBlank(title) || title.contains("未找到页面")){
+	        	return;
+	        }
+	        title = title.replace("| 陈鹏个人博客", "");
+	        			
+	        regex = "<article ([\\s\\S]*?)</article>";
+			p = Pattern.compile(regex);
+	        m = p.matcher(pageContent);
+	        String content = "";
+	        while (m.find()) {
+	           content = m.group(0);
+	        }
+	        
+	        if(StringUtils.isBlank(content)){
+	        	return;
+	        }
+	        
+	        //取消文章标题
+	        regex = "<header class=\"post-header \">([\\s\\S]*?)</header>";
+	        p = Pattern.compile(regex);
+	        m = p.matcher(content);
+	        while (m.find()) {
+	        	content = content.replace(m.group(0), "");	        	
+	        }
+	        
+	        //去掉article标签
+	        regex = "<article.+?id=.*?post_.+?>(.*?)</article>";
+	        p = Pattern.compile(regex);
+	        m = p.matcher(content);
+	        while (m.find()) {
+	        	content = m.group(1);
+	        }
+	        
+	        //去掉百度广告
+	        regex = "<script type=\"text/javascript\">([\\s\\S]*?)</script>";
+	        p = Pattern.compile(regex);
+	        m = p.matcher(content);
+	        String baiduAD = "";
+	        while (m.find()) {
+	        	baiduAD = m.group(0);
+	        	if(baiduAD.contains("var cpro_id")){
+	        		content = content.replace(baiduAD, "");
+	        	}
+	        	
+	        }
+	        
+	        regex = "<footer class=\"post-footer\">([\\s\\S]*)<div class=\"clear\"></div></div>";
+	        p = Pattern.compile(regex);
+	        m = p.matcher(content);
+	        while (m.find()) {
+	        	content = content.replace(m.group(0), "");
+	        }
+	        
+	        String baiduADScript = "<script src=\"http://cpro.baidustatic.com/cpro/ui/c.js\" type=\"text/javascript\"></script>";
+	        content = content.replace(baiduADScript, "");
+	        regex = "<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>";
+	        p = Pattern.compile(regex);
+	        m = p.matcher(content);
+	        String imgTagSrc = "";
+	        while (m.find()) {
+	        	imgTagSrc = m.group(1);
+	        	if(imgTagSrc.contains("http://static.chenpeng.info/uploads/")){
+	        		String dateStr =DateUtil.getDateStr("yyyyMMdd"); 
+		        	String fileDirectoryUrl = ServletUtils.getRealPath(request) + "/upload/" + dateStr;
+			        File file=new File(fileDirectoryUrl);    
+			        if(!file.exists() && !file .isDirectory()){    
+			        	file.mkdir();   
+			    	}
+		        	
+			        String imgName = UuidUtil.uuid2() + imgTagSrc.substring(imgTagSrc.lastIndexOf("."));
+			        String newImgUrl = fileDirectoryUrl + "/" + imgName;
+			        FileUtils.download(imgTagSrc, newImgUrl);
+			        content = content.replace(imgTagSrc, "/upload/" + dateStr + "/" + imgName);
+	        	}
+	        }
+
+	        content = content.replace("http://chenpeng.info", "");
+	        content = content.replace("chenpeng.info", "");
+	        content = content.replace("http://www.chenpeng.info", "");
+	        CrawlerArticle crawlerArticle = new CrawlerArticle();
+	        crawlerArticle.setHits(1);
+	        crawlerArticle.setCrawlerTime(new Date());
+	        crawlerArticle.setTitle(title);
+	        crawlerArticle.setArticleMaxId(articleId);
+	        crawlerArticle.setUrl("http://chenpeng.info/");
+	        crawlerArticle.setArticleType("1");
+	        crawlerArticle.setContent(content);
+	        crawlerArticle.setWebsiteName("陈鹏的博客");
+	        crawlerArticle.setDescrible(this.getDescByContent(content) + "......");
+	        //System.out.println(new Gson().toJson(crawlerArticle));
+			crawlerArticleService.save(crawlerArticle);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	/**
 	 * 根据文章id保存javaseo的内容
 	 * @param articleId 文章id
 	 */
@@ -149,21 +317,21 @@ public class CrawlerController {
 	        String imgUrl = "";
 	        while (m.find()) {
 	        	imgUrl = m.group(1);
+	        	if(StringUtils.isNotBlank(imgUrl)){
+		        	String dateStr =DateUtil.getDateStr("yyyyMMdd"); 
+		        	String fileDirectoryUrl = ServletUtils.getRealPath(request) + "/upload/" + dateStr;
+			        File file=new File(fileDirectoryUrl);    
+			        if(!file.exists() && !file .isDirectory()){    
+			        	file.mkdir();   
+			    	}
+		        	
+			        String imgName = UuidUtil.uuid2() + imgUrl.substring(imgUrl.lastIndexOf("."));
+			        String newImgUrl = fileDirectoryUrl + "/" + imgName;
+			        FileUtils.download("http://www.javaseo.cn/" + imgUrl, newImgUrl);
+			        content = content.replace(imgUrl, "/upload/" + dateStr + "/" + imgName);
+		        }
 	        }
-	        if(StringUtils.isNotBlank(imgUrl)){
-	        	String dateStr =DateUtil.getDateStr("yyyyMMdd"); 
-	        	String fileDirectoryUrl = ServletUtils.getRealPath(request) + "/upload/" + dateStr;
-		        File file=new File(fileDirectoryUrl);    
-		        if(!file.exists() && !file .isDirectory()){    
-		        	file.mkdir();   
-		    	}
-	        	
-		        String imgName = UuidUtil.uuid2() + imgUrl.substring(imgUrl.lastIndexOf("."));
-		        String newImgUrl = fileDirectoryUrl + "/" + imgName;
-		        FileUtils.download("http://www.javaseo.cn/" + imgUrl, newImgUrl);
-		        content = content.replace(imgUrl, "/upload/" + dateStr + "/" + imgName);
-	        }
-
+	        
 	        content = content.replace("http://javaseo.cn/article", "/blog");
 	        content = content.replace("http://www.javaseo.cn/article", "/blog");
 	        content = content.replace("http://www.javaseo.cn", "");
@@ -184,40 +352,113 @@ public class CrawlerController {
 		}
 	}
 	
+	/**
+	 * 根据内容获取文章描述
+	 * @param content
+	 * @return
+	 */
 	private String getDescByContent(String content){
 		String desc = content;
 		if(desc.length() > 500){
+			desc = desc.replaceAll("\\&[a-zA-Z]{0,9};", "").replaceAll("<[^>]*>", "");
         	desc = desc.substring(0,  500);
         }
 		
-		desc = desc.replaceAll("\\&[a-zA-Z]{0,9};", "").replaceAll("<[^>]*>", "");
+		
 		desc = desc.replaceAll(" ", "");
 		
 		return desc;
 	}
 	
 	public static void main(String[] args) {
-		String nextUrl = "http://www.javaseo.cn/article/32/";
-		String pageContent = HttpUtil.getUrl(nextUrl);
-		String regex = "<p>([\\s\\S]*)</p>";
+		/*String url = "http://chenpeng.info/";
+		String pageContent = HttpUtil.getByHttp(url);
+		String regex = "<article id=\"post-([\\d]*)\" style=\"overflow: hidden;\"";
+		Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(pageContent);
+        Integer maxId = 0;
+        while (m.find()) {
+            Integer artileId = Integer.parseInt(m.group(1)); 
+            if(artileId > maxId){
+            	maxId = artileId;
+            }
+        }
+        */
+        String nextUrl = "http://chenpeng.info/html/" + 3533;
+		String pageContent = "";
+		try {
+			pageContent = HttpUtil.getByHttp(nextUrl);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String regex = "<title>([\\s\\S]*?)</title>";
 		Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(pageContent);
         String title = "";
         while (m.find()) {
-        	title = m.group(0);
+           title = m.group(1);
         }
         
-        regex = "</h1>([\\s\\S]*)<div class=\"QA-text-foot\">";
+        title = title.replace("| 陈鹏个人博客", "");
+        
+        
+        regex = "<article ([\\s\\S]*?)</article>";
 		p = Pattern.compile(regex);
         m = p.matcher(pageContent);
         String content = "";
         while (m.find()) {
+           content = m.group(0);
+        }
+
+        regex = "<script type=\"text/javascript\">([\\s\\S]*?)</script>";
+        p = Pattern.compile(regex);
+        m = p.matcher(content);
+        String baiduAD = "";
+        while (m.find()) {
+        	baiduAD = m.group(0);
+        	if(baiduAD.contains("var cpro_id")){
+        		content = content.replace(baiduAD, "");
+        	}
+        	
+        }
+        
+        regex = "<header class=\"post-header \">([\\s\\S]*?)</header>";
+        p = Pattern.compile(regex);
+        m = p.matcher(content);
+        String header = "";
+        while (m.find()) {
+        	//System.out.println(m.group(0));
+        	
+        }
+         
+        //System.out.println(content);
+        
+        regex = "<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>";
+        p = Pattern.compile(regex);
+        m = p.matcher(content);
+        String imgTagSrc = "";
+        while (m.find()) {
+        	imgTagSrc = m.group(1);
+        	if(imgTagSrc.contains("http://static.chenpeng.info/uploads/")){
+        		//System.out.println(imgTagSrc);
+        	}
+        }
+        regex = "<article.+?id=.*?post_.+?>(.*?)</article>";
+        p = Pattern.compile(regex);
+        m = p.matcher(content);
+        String article = "";
+        while (m.find()) {
         	content = m.group(1);
         }
         
-        String desc = "";// getDescByContent(content);
-        
-        System.out.println(desc);
+        regex = "<footer class=\"post-footer\">([\\s\\S]*)<div class=\"clear\"></div></div>";
+        p = Pattern.compile(regex);
+        m = p.matcher(content);
+        while (m.find()) {
+        	System.out.println(m.group(0));
+        }
 	}
 	
 }

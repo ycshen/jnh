@@ -27,11 +27,12 @@
 }
 .a_con1_left{
 	width: 80%;
+	float:left;
 }
 
 .a_con1_right{
-	width: 20%;
-	min-width: 200px;
+	width: 19%;
+	float: right;
 }
 .a_con1_detail{ 
 	width: 100%;
@@ -42,6 +43,12 @@
 	width: 100%;
 	border: 1px solid #ccc;
 	line-height: 36px;
+}
+.a_con1_ad{
+	width: 100%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align:center;
 }
 </style>
 </head>
@@ -56,6 +63,10 @@
 				<div class="a_con1_detail">
 					发布日期：  ${crawlerArticle.crawlerTime} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;浏览： ${crawlerArticle.hits}
 				</div>
+				<div class="a_con1_ad">
+				<%@ include file="plugins/ad728_90.jsp"%>
+				</div>
+				
 				<div class="a_con1">
 					${crawlerArticle.content}
 				</div>
@@ -75,7 +86,7 @@
 				
 			</div>
 			<div class="a_con1_right">
-			
+				<%@ include file="../wz/plugins/ad200_200.jsp"%>
 			</div>
 		 	
 		</div>
