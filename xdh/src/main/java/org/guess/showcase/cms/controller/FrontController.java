@@ -27,6 +27,7 @@ import org.guess.showcase.cms.model.Style;
 import org.guess.showcase.cms.service.ArticleService;
 import org.guess.showcase.cms.service.CaseService;
 import org.guess.showcase.cms.service.CategoryService;
+import org.guess.showcase.cms.service.ClickAppraiseService;
 import org.guess.showcase.cms.service.CommentService;
 import org.guess.showcase.cms.service.GrService;
 import org.guess.showcase.cms.service.MenuPriceService;
@@ -35,6 +36,7 @@ import org.guess.showcase.cms.service.RecruitService;
 import org.guess.showcase.cms.service.ServiceItemsService;
 import org.guess.showcase.cms.service.StyleService;
 import org.guess.showcase.cms.util.CmsUtil;
+import org.guess.showcase.cms.util.IpUtil;
 import org.guess.sys.model.User;
 import org.guess.sys.service.LogService;
 import org.guess.sys.service.UserService;
@@ -81,6 +83,8 @@ public class FrontController {
 	private PlanService planService;
 	@Autowired
 	private LogService logService;
+	@Autowired
+	private ClickAppraiseService appraiseService;
 	// 首页
 	@RequestMapping("{site}/index.html")
 	public String index(@PathVariable("site") String site, HttpServletRequest request) {
@@ -719,5 +723,22 @@ public class FrontController {
 		mav.addObject("jnhTitle", "档期查询-");
 		
 		return mav;
+	}
+	
+	/**
+	 * 点击评价
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("blog/appraise/{tableName}/{articleId}/{type}")
+	@ResponseBody
+	public void appraise(HttpServletRequest request, @PathVariable("tableName") String tableName, @PathVariable("articleId") Long articleId, @PathVariable("type") Integer type){
+		tableName = "t_" + tableName;
+		try{
+			appraiseService.clickAppraise(type, tableName, articleId);
+		}catch(Exception e){
+			logService.addExceptionLog("点击评价异常", "点击评价异常:" + e.getMessage(), IpUtil.getIpAddr(request), "游客");
+		}
+		
 	}
 }

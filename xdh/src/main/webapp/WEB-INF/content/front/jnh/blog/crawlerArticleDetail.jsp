@@ -12,6 +12,25 @@
 <meta name="keywords" content="关于我们,网站建设报价，小青年,小青年网络科技，小青年网络科技有限公司,网站建设,400电话,域名注册,网站部署,SEO优化,微信公众平台" />
 <meta name="description" content="关于我们,网站建设报价，小青年,小青年网络科技，小青年网络科技有限公司,网站建设,400电话,域名注册,网站部署,SEO优化,微信公众平台" />
 <%@ include file="plugins/bootstrap.jsp"%>
+<script type="text/javascript">
+	function appraise(type, spanId){
+		$.ajax({
+			type: 'get',
+			url: '${ctx}/blog/appraise/crawler_article/${crawlerArticle.id}/' + type,
+			success: function(){
+				var spanTag = $("#"+ spanId);
+				var value = spanTag.html();
+				if(value == ""){
+					value = "0";
+				}
+				
+				value = parseInt(value) + 1;
+				spanTag.html(value);
+				
+			}
+		});
+	}
+</script>
 <style type="text/css">
 .a_title{
 	width: 100%;
@@ -48,11 +67,26 @@
 	border: 1px solid #ccc;
 	line-height: 36px;
 }
+
+.a_con1_imgList{
+	width: 100%;
+	height: 140px;
+}
 .a_con1_ad{
 	width: 100%;
 	margin-top: 10px;
 	margin-bottom: 10px;
 	text-align:center;
+}
+.imgClass{
+	float:left;
+	width:80px;
+	height:5px;
+	margin-left: 100px;
+	text-align: center;
+}
+.imgClass img{
+	cursor: pointer;
 }
 </style>
 </head>
@@ -74,6 +108,17 @@
 				<div class="a_con1">
 					${crawlerArticle.content}
 				</div>
+				<div class="a_con1_imgList">
+					<div class="imgClass">
+						<img src="${ctx}/assets/img/blog/smile.png" class="img-responsive" onclick="appraise('1', 'spanGood');"/>好文章<br/>(<span id="spanGood">${appraise.good == null ? 0 : appraise.good}</span>)
+					</div>
+					<div class="imgClass">
+						<img src="${ctx}/assets/img/blog/sweat.png" class="img-responsive" onclick="appraise('2', 'spanBad');"/>垃圾文章<br/>(<span id="spanBad">${appraise.bad == null ? 0 : appraise.bad}</span>)
+					</div>
+					<div class="imgClass">
+						<img src="${ctx}/assets/img/blog/question.png" class="img-responsive" onclick="appraise('3', 'spanNotClear');"/>没看懂<br/>(<span id="spanNotClear">${appraise.notClear == null ? 0 : appraise.notClear}</span>)
+					</div>
+				</div>
 				<div class="a_con1_bottom">
 					<c:if test="${preCrawlerArticle != null}">
 					上一篇:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="${ctx}/blog/${preCrawlerArticle.id}">${preCrawlerArticle.title}</a>
@@ -92,7 +137,6 @@
 			<div class="a_con1_right">
 				<%@ include file="../wz/plugins/ad200_200.jsp"%>
 			</div>
-		 	
 		</div>
 		
 	</div>

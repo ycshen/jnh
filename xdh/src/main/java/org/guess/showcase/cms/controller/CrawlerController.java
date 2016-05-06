@@ -21,7 +21,9 @@ import org.guess.core.utils.FileUtils;
 import org.guess.core.utils.UuidUtil;
 import org.guess.core.utils.web.ServletUtils;
 import org.guess.showcase.cms.model.Article;
+import org.guess.showcase.cms.model.ClickAppraise;
 import org.guess.showcase.cms.model.CrawlerArticle;
+import org.guess.showcase.cms.service.ClickAppraiseService;
 import org.guess.showcase.cms.service.CrawlerArticleService;
 import org.guess.showcase.cms.util.HttpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,8 @@ import com.google.gson.Gson;
 public class CrawlerController {
 	@Autowired
 	private CrawlerArticleService crawlerArticleService;
+	@Autowired
+	private ClickAppraiseService appraiseService;
 	@RequestMapping("wz/crawler")
 	public void crawler(HttpServletRequest request) {
 		craw_www_java_seo_cn(request);
@@ -64,8 +68,10 @@ public class CrawlerController {
 		mav.addObject("crawlerArticle", crawlerArticle);		
 		CrawlerArticle nextCrawlerArticle = crawlerArticleService.getCrawlerArticleById(id + 1);
 		CrawlerArticle preCrawlerArticle = crawlerArticleService.getCrawlerArticleById(id - 1);
+		ClickAppraise appraise = appraiseService.findByTableAndArticleId("t_crawler_article", id);
 		mav.addObject("nextCrawlerArticle", nextCrawlerArticle);
 		mav.addObject("preCrawlerArticle", preCrawlerArticle);
+		mav.addObject("appraise", appraise);
 		
 		return mav;
 	}
