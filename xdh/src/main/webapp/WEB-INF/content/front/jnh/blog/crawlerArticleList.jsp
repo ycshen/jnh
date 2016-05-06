@@ -67,6 +67,9 @@
 	<div class="container">		
 		<div class="a_con1">
 			<div class="a_con1_left">
+				<%@ include file="page/crawlerArticleListPage.jsp"%>
+			</div>
+			<div class="a_con1_left">
 				<c:forEach var="crawlerArticle" items="${page.result }">
 					<div class="a_title">
 					<a href="${ctx}/blog/${crawlerArticle.id}" target="_blank">${crawlerArticle.title}</a>
@@ -83,6 +86,9 @@
 			<div class="a_con1_right">
 			<%@ include file="../wz/plugins/ad200_200.jsp"%>
 				
+			</div>
+			<div class="a_con1_left">
+				<%@ include file="page/crawlerArticleListPage.jsp"%>
 			</div>
 		 	
 		</div>

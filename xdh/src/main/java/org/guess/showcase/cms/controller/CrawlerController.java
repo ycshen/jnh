@@ -88,6 +88,10 @@ public class CrawlerController {
 		pageRequest.setOrderDir(Sort.DESC);
 		pageRequest.setOrderBy("id");
 		Page<CrawlerArticle> pageData = crawlerArticleService.findPage(pageRequest, andfilters, filters);
+		mav.addObject("pr", pageData.isFirstPage() ? page : page - 1);
+		mav.addObject("pn", pageData.isLastPage() ? page : page + 1);
+		mav.addObject("p", page);
+		mav.addObject("pp", pageData.getTotalPages());
 		mav.addObject("page", pageData);
 		return mav;
 	}
