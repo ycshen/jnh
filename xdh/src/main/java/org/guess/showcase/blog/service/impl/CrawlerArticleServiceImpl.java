@@ -1,9 +1,9 @@
-package org.guess.showcase.cms.service.impl;
+package org.guess.showcase.blog.service.impl;
 
 import org.guess.core.service.BaseServiceImpl;
-import org.guess.showcase.cms.dao.CrawlerArticleDao;
-import org.guess.showcase.cms.model.CrawlerArticle;
-import org.guess.showcase.cms.service.CrawlerArticleService;
+import org.guess.showcase.blog.dao.CrawlerArticleDao;
+import org.guess.showcase.blog.model.CrawlerArticle;
+import org.guess.showcase.blog.service.CrawlerArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -3,10 +3,10 @@ package org.guess.sys.service.impl;
 import java.util.Date;
 
 import org.guess.core.service.BaseServiceImpl;
+import org.guess.core.utils.IpUtil;
 import org.guess.showcase.cms.dao.ListenerLogDao;
 import org.guess.showcase.cms.model.ListenerLog;
 import org.guess.showcase.cms.model.SinaIpInfo;
-import org.guess.showcase.cms.util.IpUtil;
 import org.guess.sys.dao.LogDao;
 import org.guess.sys.model.Log;
 import org.guess.sys.service.LogService;

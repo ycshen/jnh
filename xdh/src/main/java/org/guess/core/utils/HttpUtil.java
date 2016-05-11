@@ -2,7 +2,7 @@
 * Created on 2015年6月26日 下午2:45:22 
 */
 
-package org.guess.showcase.cms.util;
+package org.guess.core.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;

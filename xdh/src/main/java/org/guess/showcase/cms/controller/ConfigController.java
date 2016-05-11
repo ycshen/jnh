@@ -5,10 +5,10 @@ import java.io.File;
 import javax.servlet.http.HttpServletRequest;
 
 import org.guess.core.utils.FileUtils;
+import org.guess.core.utils.IpUtil;
 import org.guess.showcase.cms.model.Article;
 import org.guess.showcase.cms.util.CmsConstants;
 import org.guess.showcase.cms.util.CmsUtil;
-import org.guess.showcase.cms.util.IpUtil;
 import org.guess.sys.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

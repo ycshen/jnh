@@ -1,8 +1,7 @@
-package org.guess.showcase.cms.service;
+package org.guess.showcase.blog.service;
 
 import org.guess.core.service.BaseService;
-import org.guess.showcase.cms.model.Article;
-import org.guess.showcase.cms.model.CrawlerArticle;
+import org.guess.showcase.blog.model.CrawlerArticle;
 
 public interface CrawlerArticleService  extends BaseService<CrawlerArticle, Long>{
 	public Integer getMaxArticleIdByUrl(String url);

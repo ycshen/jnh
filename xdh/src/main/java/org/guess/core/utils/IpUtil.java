@@ -1,8 +1,9 @@
-package org.guess.showcase.cms.util;
+package org.guess.core.utils;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.guess.showcase.cms.model.SinaIpInfo;
+import org.guess.showcase.cms.util.CmsConstants;
 
 import com.google.gson.Gson;
 

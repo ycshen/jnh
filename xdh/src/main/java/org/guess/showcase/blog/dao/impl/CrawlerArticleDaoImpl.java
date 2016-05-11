@@ -1,17 +1,9 @@
-package org.guess.showcase.cms.dao.impl;
-
-import java.util.List;
+package org.guess.showcase.blog.dao.impl;
 
 import org.guess.core.orm.hibernate.HibernateDao;
-import org.guess.showcase.cms.dao.CaseDao;
-import org.guess.showcase.cms.dao.CrawlerArticleDao;
-import org.guess.showcase.cms.model.Case;
-import org.guess.showcase.cms.model.CrawlerArticle;
-import org.hibernate.Query;
+import org.guess.showcase.blog.dao.CrawlerArticleDao;
+import org.guess.showcase.blog.model.CrawlerArticle;
 import org.hibernate.SQLQuery;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository

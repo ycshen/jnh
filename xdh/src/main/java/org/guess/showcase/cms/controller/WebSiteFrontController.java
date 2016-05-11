@@ -19,6 +19,7 @@ import org.guess.core.orm.Page;
 import org.guess.core.orm.PageRequest;
 import org.guess.core.orm.PropertyFilter;
 import org.guess.core.orm.PageRequest.Sort;
+import org.guess.core.utils.HttpUtil;
 import org.guess.core.utils.web.ServletUtils;
 import org.guess.showcase.cms.model.Article;
 import org.guess.showcase.cms.model.Category;
@@ -28,7 +29,6 @@ import org.guess.showcase.cms.service.ArticleService;
 import org.guess.showcase.cms.service.GuestService;
 import org.guess.showcase.cms.service.ListenerLogService;
 import org.guess.showcase.cms.util.CmsConstants;
-import org.guess.showcase.cms.util.HttpUtil;
 import org.guess.sys.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -172,14 +172,14 @@ public class WebSiteFrontController {
 	 * 域名查询
 	 * @param request
 	 * @return
-	 */
+	 *//*
 	@ResponseBody
 	@RequestMapping("/wz/queryDomain")
 	public String queryDomain(HttpServletRequest request){
 		String domain = request.getParameter("domain");
 		logService.addListenerLog("域名查询", domain + ":域名 是否注册", ServletUtils.getIpAddr(request), "游客");
 		return queryDomain(domain);
-	}
+	}*/
 	
 	/**
 	 * 域名查询

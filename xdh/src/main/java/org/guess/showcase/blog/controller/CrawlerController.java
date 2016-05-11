@@ -1,36 +1,31 @@
-package org.guess.showcase.cms.controller;
+package org.guess.showcase.blog.controller;
 
 import java.io.File;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpUtils;
 
 import org.apache.commons.lang.StringUtils;
 import org.guess.core.orm.Page;
 import org.guess.core.orm.PageRequest;
-import org.guess.core.orm.PropertyFilter;
 import org.guess.core.orm.PageRequest.Sort;
+import org.guess.core.orm.PropertyFilter;
 import org.guess.core.utils.DateUtil;
 import org.guess.core.utils.FileUtils;
+import org.guess.core.utils.HttpUtil;
 import org.guess.core.utils.UuidUtil;
 import org.guess.core.utils.web.ServletUtils;
-import org.guess.showcase.cms.model.Article;
+import org.guess.showcase.blog.model.CrawlerArticle;
+import org.guess.showcase.blog.service.CrawlerArticleService;
 import org.guess.showcase.cms.model.ClickAppraise;
-import org.guess.showcase.cms.model.CrawlerArticle;
 import org.guess.showcase.cms.service.ClickAppraiseService;
-import org.guess.showcase.cms.service.CrawlerArticleService;
-import org.guess.showcase.cms.util.HttpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.common.collect.Lists;
@@ -94,6 +89,7 @@ public class CrawlerController {
 		pageRequest.setOrderDir(Sort.DESC);
 		pageRequest.setOrderBy("id");
 		Page<CrawlerArticle> pageData = crawlerArticleService.findPage(pageRequest, andfilters, filters);
+		System.out.println(new Gson().toJson(pageData));
 		mav.addObject("pr", pageData.isFirstPage() ? page : page - 1);
 		mav.addObject("pn", pageData.isLastPage() ? page : page + 1);
 		mav.addObject("p", page);
@@ -390,8 +386,8 @@ public class CrawlerController {
 	 */
 	private String getDescByContent(String content){
 		String desc = content;
+		desc = desc.replaceAll("\\&[a-zA-Z]{0,9};", "").replaceAll("<[^>]*>", "");
 		if(desc.length() > 500){
-			desc = desc.replaceAll("\\&[a-zA-Z]{0,9};", "").replaceAll("<[^>]*>", "");
         	desc = desc.substring(0,  500);
         }
 		
@@ -399,6 +395,16 @@ public class CrawlerController {
 		desc = desc.replaceAll(" ", "");
 		
 		return desc;
+	}
+	
+	/**
+	 * 过滤文章内容的html标签
+	 * @param content 文章内容
+	 * @return 过滤HTML标签后文章内容
+	 */
+	private String filterHtmlTag(String content){
+		
+		return content.replaceAll("\\&[a-zA-Z]{0,9};", "").replaceAll("<[^>]*>", "");
 	}
 	
 	public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package org.guess.showcase.cms.model;
+package org.guess.showcase.blog.model;
 
 import java.util.Date;
 
