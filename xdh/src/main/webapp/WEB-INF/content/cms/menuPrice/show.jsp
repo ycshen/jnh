@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/content/common/common.jsp"%>
 <c:set var="pageTitle" value="${empty obj ? '发布个人求职信息':'修改个人求职信息' }" scope="page" />
 <html>
 <head>
+<%@ include file="/WEB-INF/content/common/common.jsp"%>
 <title>${pageTitle }</title>
 <script type="text/javascript">
 

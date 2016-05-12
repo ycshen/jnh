@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/content/common/common.jsp"%>
 <html>
 <head>
+<%@ include file="/WEB-INF/content/common/common.jsp"%>
 <title>审核个人求职信息列表</title>
 </head>
 <body>

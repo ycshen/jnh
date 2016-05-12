@@ -2,14 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="tool" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="sitemesh" uri="http://www.opensymphony.com/sitemesh/decorator" %>
-<c:set var="ctx" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
 <!-- BEGIN HEAD -->
+<%@ include file="/WEB-INF/content/common/head.jsp"%>
 <head>
-<title>嘉年华婚礼创意馆</title>
+<title>网站后台</title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="Pragma" content="no-cache" />
@@ -36,7 +36,8 @@
 <script src="${ctx}/assets/js/jquery-1.8.3.min.js" type="text/javascript"></script>
 <script src="${ctx}/assets/comp/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script>
-	//设置路劲
+	//设置context
+	sssss:${domain}
 	var ctx = "${ctx}";
 	jQuery(document).ready(function() {
 		//初始化

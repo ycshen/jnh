@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/content/common/common.jsp"%>
 <c:set var="pageTitle" value="${empty menuPrice ? '新增套餐模块':'修改套餐模块' }" scope="page" />
 <html>
 <head>
+<%@ include file="/WEB-INF/content/common/common.jsp"%>
 <title>${pageTitle }</title>
 <style type="text/css">
 	.navbar-fixed-top{

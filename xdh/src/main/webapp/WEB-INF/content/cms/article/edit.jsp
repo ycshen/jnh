@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/content/common/common.jsp"%>
 <c:set var="pageTitle" value="${empty obj ? '添加文章':'修改文章' }" scope="page" />
 <html>
 <head>
+<%@ include file="/WEB-INF/content/common/common.jsp"%>
 <title>${pageTitle }</title>
 <style type="text/css">
 	.navbar-fixed-top{

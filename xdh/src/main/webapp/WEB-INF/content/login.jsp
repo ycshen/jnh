@@ -70,7 +70,7 @@
 		</div>
 		<div class="login_login_main">
 			<div class="login_login_center">
-			<form class="form-horizontal" action="${ctx }/login" method="post">
+			<form class="form-horizontal" action="${ctx}/login" method="post">
 				<span style="color: red" id="remind">${message_login }</span>
 				<input type="text" name="userName" class="login_login_center_txt" placeholder="登录名"/><br/>
 				<input type="password" name="password" class="login_login_center_txt" placeholder="密码"/><br/>
