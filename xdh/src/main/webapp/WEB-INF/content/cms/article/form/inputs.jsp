@@ -47,6 +47,16 @@
    </div>
 </div>
 <div class="control-group">
+	<label class="control-label">文章类型:</label>
+	<div class="controls">
+		<select name="isBlog">
+			<option value="">请选择</option>
+			<option value="0">资讯</option>
+			<option value="1">博客</option>
+		</select>
+	</div>
+</div>
+<div class="control-group">
 	<label class="control-label">关键字:</label>
 	<div class="controls">
 		<input type="text" class="span6 m-wrap tags" name="keywords" value="${obj.keywords }" />

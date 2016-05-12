@@ -8,10 +8,14 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
+import org.aspectj.lang.annotation.Around;
 import org.guess.core.orm.Page;
 import org.guess.core.orm.PageRequest.Sort;
 import org.guess.core.orm.PropertyFilter;
 import org.guess.core.utils.FileUtils;
+import org.guess.showcase.blog.model.CrawlerArticle;
+import org.guess.showcase.blog.service.CrawlerArticleService;
 import org.guess.showcase.cms.model.Article;
 import org.guess.showcase.cms.model.RecomendItems;
 import org.guess.showcase.cms.service.ArticleService;
@@ -46,7 +50,8 @@ public class ArticleController {
 	
 	@Autowired
 	private RecomendItemsService recomendItemsService;
-
+	@Autowired
+	private CrawlerArticleService crawlerArticleService;
 	@Autowired
 	private HttpServletRequest request;
 
@@ -70,20 +75,39 @@ public class ArticleController {
 			Article article,
 			@RequestParam(value = "imgFile", required = false) MultipartFile imgFile)
 			throws Exception {
-		if (!imgFile.isEmpty()) {
-			String uuidName = FileUtils.uuidFileName(imgFile.getOriginalFilename());
-			String path = "upload/"+CmsConstants.ART_IMG_PATH+"/"+uuidName;
-			File imgFilePath = new File(CmsUtil.getArtImgPath(request) + "/"
-					+uuidName);
-			imgFile.transferTo(imgFilePath);
-			article.setImgpath(path);
+		
+		String isBlog = article.getIsBlog();
+		if(StringUtils.isNotBlank(isBlog) && "1".equals(isBlog)){
+			CrawlerArticle crawlerArticle = new CrawlerArticle();
+			crawlerArticle.setArticleType("1");
+			crawlerArticle.setContent(article.getContent());
+			crawlerArticle.setTitle(article.getTitle());
+			crawlerArticle.setCrawlerTime(new Date());
+			crawlerArticle.setCreateDate(new Date());
+			crawlerArticle.setDelFlag(0);
+			crawlerArticle.setDescrible(article.getDescription());
+			crawlerArticle.setHits(500);
+			crawlerArticle.setUrl("http://www.52jnh.com");
+			crawlerArticle.setWebsiteName("小青年博客");
+			crawlerArticleService.save(crawlerArticle);
+		}else{
+			if (!imgFile.isEmpty()) {
+				String uuidName = FileUtils.uuidFileName(imgFile.getOriginalFilename());
+				String path = "upload/"+CmsConstants.ART_IMG_PATH+"/"+uuidName;
+				File imgFilePath = new File(CmsUtil.getArtImgPath(request) + "/"
+						+uuidName);
+				imgFile.transferTo(imgFilePath);
+				article.setImgpath(path);
+			}
+			
+			aService.save(article);
+			//添加图文推荐到图文推荐库
+			this.addWeddingOrShootArticle(article);
+			mav.setViewName("redirect:" + listView);
+			//执行静态化
+			CmsUtil.staticIndex(request);
 		}
-		aService.save(article);
-		//添加图文推荐到图文推荐库
-		this.addWeddingOrShootArticle(article);
-		mav.setViewName("redirect:" + listView);
-		//执行静态化
-		CmsUtil.staticIndex(request);
+		
 		return mav;
 	}
 

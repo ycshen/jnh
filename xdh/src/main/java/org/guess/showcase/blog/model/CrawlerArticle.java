@@ -63,7 +63,7 @@ public class CrawlerArticle extends DataEntity{
 	
 	
 	/**
-	 * 1-it技术
+	 * 1-it技术, 
 	 * @return
 	 */
 	public String getArticleType() {

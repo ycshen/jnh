@@ -5,6 +5,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.guess.showcase.cms.model.pa.DataEntity;
 import org.hibernate.annotations.Cache;
@@ -68,6 +69,12 @@ public class Article extends DataEntity {
 	 */
 	private String imgpath;
 	
+	/**
+	 * 是否是博客
+	 */
+	@Transient
+	private String isBlog;
+	
 	public String getImgpath() {
 		return imgpath;
 	}
@@ -115,6 +122,13 @@ public class Article extends DataEntity {
 	}
 	public void setHits(int hits) {
 		this.hits = hits;
+	}
+	
+	public String getIsBlog() {
+		return isBlog;
+	}
+	public void setIsBlog(String isBlog) {
+		this.isBlog = isBlog;
 	}
 }
 

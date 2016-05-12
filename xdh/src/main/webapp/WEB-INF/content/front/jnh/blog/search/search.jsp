@@ -66,8 +66,11 @@
 	<%@ include file="../plugins/banner.jsp"%>
 	<div class="container">		
 		<div class="a_con1">
-			<div class="a_con1_left">
+			<%-- <div class="a_con1_left">
 				<%@ include file="../page/crawlerArticleListPage.jsp"%>
+			</div> --%>
+			<div class="a_con1_left">
+				为你搜索到${searchList.size()}条数据~~~~
 			</div>
 			<div class="a_con1_left">
 				<c:forEach var="searchResult" items="${searchList}">
@@ -75,14 +78,14 @@
 					<a href="${ctx}/blog/${searchResult.id}" target="_blank">${searchResult.resultTitle}</a>
 					</div>
 					<div class="a_content">
-						&nbsp;&nbsp;&nbsp;&nbsp;${searchResult.resultContent}
+						&nbsp;&nbsp;&nbsp;&nbsp;${searchResult.resultDesc}
 					</div>
 				</c:forEach>
 				
 			</div>
-			<div class="a_con1_left">
+			<%-- <div class="a_con1_left">
 				<%@ include file="../page/crawlerArticleListPage.jsp"%>
-			</div>
+			</div> --%>
 		 	
 		</div>
 		

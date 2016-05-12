@@ -1,6 +1,9 @@
 package org.guess.showcase.blog.controller;
 
+import java.util.LinkedList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.guess.core.utils.lucene.LuceneSearcher;
 import org.guess.showcase.blog.model.SearchResult;
@@ -22,24 +25,24 @@ public class SearchController {
 	@Autowired
 	private SearchService searchService;
 	/**
-	 * 文章详细
+	 * 文章检索
 	 * @param id
 	 * @return
 	 */
 	@RequestMapping(value = "blog/search", method = RequestMethod.POST)
-	public ModelAndView search(@ModelAttribute SearchResult searchResult){
+	public ModelAndView search(@ModelAttribute SearchResult searchResult, HttpServletRequest request){
 		ModelAndView mav = new ModelAndView("/front/jnh/blog/search/search");
 		String queryString = searchResult.getQueryString();
-		System.out.println(queryString);
+		//查询数据库的数据
 		List<SearchResult> searchList = searchService.queryByLucene(queryString);
 		try {
-			LuceneSearcher.search(searchList, queryString);
+			//Lucene检索
+			 searchList = LuceneSearcher.search(request, searchList, queryString);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		mav.addObject("searchList", searchList);
-			
+		
+		mav.addObject("searchList", searchList);	
 		return mav;
 	}
 	
