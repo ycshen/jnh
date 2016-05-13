@@ -6,8 +6,6 @@
 		<div class="container-fluid">
 			<!-- 页面导航 -->
 			<tool:navBar pageTitle="个人求职信息列表" pageTitleContent="系统管理-个人求职信息-个人求职信息列表" titleIcon="icon-home"/>
-			
-${ctx }申鱼川${domain}
 			<!-- 主体内容 -->
 			<div class="row-fluid">
 				<div class="span12">

@@ -10,7 +10,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
-@Table(name = "SYS_LOG")
+@Table(name = "sys_log")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Log extends IdEntity{
 

@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Controller
@@ -119,7 +120,7 @@ public class LoginController {
 	@RequestMapping(method = RequestMethod.POST,value="login")
 	public String login(@RequestParam("userName") String userName, @RequestParam("password") String password,
 			@RequestParam(value="rememberMe",required=false,defaultValue="false") boolean remember,HttpServletRequest request) {
-
+	
 		UsernamePasswordToken token = new UsernamePasswordToken(userName, Coder.encryptMD5(userName+password));
 		token.setRememberMe(remember);
 		Subject currentUser = SecurityUtils.getSubject();

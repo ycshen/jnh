@@ -23,7 +23,7 @@ import org.hibernate.annotations.NotFoundAction;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "SYS_RES")
+@Table(name = "sys_res")
 @JsonIgnoreProperties(value = { "parent","roles" })
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Resource extends IdEntity {
