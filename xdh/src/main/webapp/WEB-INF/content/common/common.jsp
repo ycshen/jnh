@@ -7,4 +7,4 @@
 <%
 	request.setCharacterEncoding("UTF-8") ;
 %>
-<c:set var="ctx" value="${ctx}" scope="session" />
+<c:set var="ctx" value="${pageContext.request.contextPath}" scope="page"/>

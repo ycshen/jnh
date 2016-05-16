@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/content/common/common.jsp"%>
 <c:set var="pageTitle" value="${empty obj ? '添加推广说明':'修改推广说明' }" scope="page" />
 <html>
 <head>
-<%@ include file="/WEB-INF/content/common/common.jsp"%>
 <title>${pageTitle }</title>
 <script type="text/javascript">
 </script>
@@ -29,24 +29,24 @@
 						<div class="portlet-body form">
 							<form action="${ctx }/cms/cpa/edit" class="form-horizontal form_sync"
 								method="post" id="form1">
-								<!-- 招聘ID -->
 								<input type="hidden" value="${obj.id }" name="id">
-								<!-- 招聘创建日期 -->
+								
 								<c:if test="${not empty obj }">
 									<input type="hidden" id="time" value="<fmt:formatDate value='${obj.createDate }'/>" name="createDate">
 								</c:if>
 								
-								<div class="control-cpaoup">
+								 <div class="control-group">
 									<label class="control-label">内容类型:</label>
 									<div class="controls">
 										<select name="contentType">
 											<option value="1">请选择</option>
 											<option value="1">活动规则</option>
 											<option value="2">商品详情</option>
+											<option value="3">活动主题</option>
 										</select>
 									</div>
 								</div>
-								<div class="control-cpaoup">
+								<div class="control-group">
 									<label class="control-label">产品类型:</label>
 									<div class="controls">
 										<select name="articleType">

@@ -56,6 +56,7 @@ public class CpaController  extends BaseController<CpaArticle>{
 	@Override
 	@RequestMapping(method = RequestMethod.POST, value = "/edit")
 	public String create(CpaArticle cpaArticle) throws Exception {
+		cpaArticle.setCreateBy(UserUtil.getCurrentUser());
 		capArticleService.save(cpaArticle);
 		return REDIRECT + listView;
 	}
@@ -73,7 +74,6 @@ public class CpaController  extends BaseController<CpaArticle>{
 		List<PropertyFilter> orfilters = Lists.newArrayList();
 		page.setOrderBy("id");
 		page.setOrderDir(Sort.DESC);		
-		orfilters.add(new PropertyFilter("EQS_loginId", UserUtil.getCurrentUser().getLoginId()));
 		Page<CpaArticle> pageData = capArticleService.findPage(page, orfilters);
 		return pageData.returnMap();
 	}

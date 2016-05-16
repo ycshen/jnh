@@ -6,7 +6,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<title>XXX正在砍价iPhone6，快来帮砍价</title>
+<title>${title}</title>
 <meta name="keywords" content="小青年网络科技有限公司" />
 <meta name="description" content="小青年网络科技有限公司" />
 
@@ -121,6 +121,7 @@
 					商品详情
 				</div>
 				<div class="main_div_good_detail_con">
+					${cpaArticle.content }
 				</div>
 			</div>
 			<div class="main_div_good_detail">

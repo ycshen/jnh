@@ -56,6 +56,7 @@
 				<value>org.guess.sys.model</value>
 				<value>org.guess.showcase.cms.model</value>
 				<value>org.guess.showcase.blog.model</value>
+				<value>org.guess.showcase.cpa.model</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

@@ -29,10 +29,17 @@ import org.guess.showcase.cms.service.ArticleService;
 import org.guess.showcase.cms.service.GuestService;
 import org.guess.showcase.cms.service.ListenerLogService;
 import org.guess.showcase.cms.util.CmsConstants;
+import org.guess.showcase.cpa.model.CpaArticle;
+import org.guess.showcase.cpa.model.CpaUser;
+import org.guess.showcase.cpa.service.CpaArticleService;
+import org.guess.showcase.cpa.service.CpaUserService;
+import org.guess.showcase.cpa.util.UserAgent;
+import org.guess.showcase.cpa.util.UserAgentUtil;
 import org.guess.sys.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,6 +47,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.common.collect.Lists;
+import com.google.gson.Gson;
 
 /**
  * @author 申鱼川 E-mail:shenyuchuan@xiaojiuwo.cn
@@ -54,6 +62,10 @@ public class WebSiteFrontController {
 	private LogService logService;
 	@Autowired
 	private ListenerLogService listenerLogService;
+	@Autowired
+	private CpaArticleService cpaService;
+	@Autowired
+	private CpaUserService cpaUserService;
 	
 	/**
 	 * 网站建设首页(wz.52jnh.com)
@@ -356,7 +368,19 @@ public class WebSiteFrontController {
 	 */
 	@RequestMapping("/wz/kanjia")
 	public ModelAndView kanjia(){
-		ModelAndView mav = new ModelAndView("/front/jnh/wz/cpa/index");		
+		ModelAndView mav = new ModelAndView("/front/jnh/wz/cpa/index");	
+		String content = "";
+		String title = "";
+		CpaArticle conCpa = cpaService.getCpaArticleByType(1, 1);
+		if(conCpa != null){
+			content = conCpa.getContent();
+		}
+		mav.addObject("content", content);	
+		CpaArticle titleCpa = cpaService.getCpaArticleByType(3, 1);
+		if(conCpa != null){
+			title = titleCpa.getContent();
+		}
+		mav.addObject("title", title);
 		return mav;
 	}
 	
@@ -366,7 +390,66 @@ public class WebSiteFrontController {
 	 */
 	@RequestMapping("/wz/join")
 	public ModelAndView join(){
-		ModelAndView mav = new ModelAndView("/front/jnh/wz/cpa/wycj");		
+		ModelAndView mav = new ModelAndView("/front/jnh/wz/cpa/wycj");
+		String content = "";
+		String title = "";
+		CpaArticle conCpa = cpaService.getCpaArticleByType(2, 1);
+		if(conCpa != null){
+			content = conCpa.getContent();
+		}
+		mav.addObject("content", content);	
+		CpaArticle titleCpa = cpaService.getCpaArticleByType(3, 1);
+		if(conCpa != null){
+			title = titleCpa.getContent();
+		}
+		mav.addObject("title", title);
 		return mav;
 	}
+	
+	/**
+	 * 我要参与注册
+	 * @return
+	 */
+	@RequestMapping("/wz/register")
+	@ResponseBody
+	public int register(@ModelAttribute CpaUser cpaUser, HttpServletRequest request){
+		int result = 0;
+		try {
+			String userAgentHeader=request.getHeader("user-agent").toUpperCase();
+			UserAgent userAgent = UserAgentUtil.getUserAgent(userAgentHeader);
+			String playFormType = "";
+			if(userAgent != null){
+				cpaUser.setBrowserType(userAgent.getBrowserType());
+				cpaUser.setBrowserVersion(userAgent.getBrowserVersion());
+				cpaUser.setPlatformSeries(userAgent.getPlatformSeries());
+				playFormType = userAgent.getPlatformType();
+				cpaUser.setPlatformType(playFormType);
+				cpaUser.setPlatformVersion(userAgent.getPlatformVersion());
+			}else{
+				logService.addOperLog("未检测的UA", userAgentHeader, "127.0.0.1", "admin");
+			}
+			
+			CpaUser oldCpaUser = cpaUserService.getUserByPhone(cpaUser.getMobile());
+			if(oldCpaUser != null){
+				oldCpaUser.setPlatformType(playFormType);
+				cpaUserService.update(oldCpaUser);
+			}else{
+				cpaUserService.save(cpaUser);
+			}
+			
+			if("IOS".equals(playFormType)|| "IPAD".equals(playFormType) || "IPHONE".equals(playFormType)){
+				result = 2; //ios
+			}else if("ANDROID".equals(playFormType)){
+				result = 3; //android
+			}else{
+				result = 1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = 0;
+		}
+		
+		return result;
+	}
+	
 }

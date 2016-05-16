@@ -95,12 +95,14 @@ $(document).ready(function() {
 				 return "活动规则";
 			 }else if(value == "2"){
 				 return "商品详情";
+			 }else if(value == "3"){
+				 return "活动主题";
 			 }
 		 }},
 		 {cName:"articleType",cValue:"产品类型", format: function(i, value, item){
-			 if(value == "0"){
+			 if(value == "1"){
 				 return "砍价";
-			 }else if(value == "1"){
+			 }else if(value == "2"){
 				 return "其他";
 			 }
 		 }}

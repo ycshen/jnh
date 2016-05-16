@@ -6,7 +6,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<title>XXX正在砍价iPhone6，快来帮砍价</title>
+<title><title>${title}</title></title>
 <meta name="keywords" content="小青年网络科技有限公司" />
 <meta name="description" content="小青年网络科技有限公司" />
 
@@ -80,12 +80,12 @@
 <body>
 	<div class="main_div">
 		<div class="main_div_form">
-		<form>
+		<form action="${ctx}/wz/register" method="post">
 		  <div class="form-group">
-		    <input type="text" class="form-control" id="txtName" placeholder="请输入用户名">
+		    <input type="text" class="form-control" id="txtName" placeholder="请输入用户名" name="name">
 		  </div>
 		  <div class="form-group">
-		    <input type="text" class="form-control" id="txtPhone" placeholder="请输入手机号">
+		    <input type="text" class="form-control" id="txtPhone" placeholder="请输入手机号" name="mobile" onkeyup="this.value=this.value.replace(/\D/g,'')" maxlength="11">
 		  </div>
 		  
 		  <button type="submit" class="btn btn-danger">报名参与</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -97,7 +97,7 @@
 					活动规则
 				</div>
 				<div class="main_div_good_detail_con">
-				
+					${cpaArticle.content }
 				</div>
 			</div>
 	</div>
