@@ -349,4 +349,24 @@ public class WebSiteFrontController {
 		
 		return mav;
 	}
+	
+	/**
+	 * 砍价
+	 * @return
+	 */
+	@RequestMapping("/wz/kanjia")
+	public ModelAndView kanjia(){
+		ModelAndView mav = new ModelAndView("/front/jnh/wz/cpa/index");		
+		return mav;
+	}
+	
+	/**
+	 * 我要参加
+	 * @return
+	 */
+	@RequestMapping("/wz/join")
+	public ModelAndView join(){
+		ModelAndView mav = new ModelAndView("/front/jnh/wz/cpa/wycj");		
+		return mav;
+	}
 }

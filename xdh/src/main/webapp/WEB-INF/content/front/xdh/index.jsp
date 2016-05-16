@@ -8,16 +8,6 @@
 <link href="${ctx}/assets/xdh/css/cms.css" rel="stylesheet" type="text/css"></link>
 <link href="${ctx}/assets/css/hsfg.css" rel="stylesheet" type="text/css"/>
 <script src="${ctx}/assets/js/index.js" type="text/javascript"></script>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?2e4a91dcff4f191a83cfc1c4a7690cf3";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-
 </head>
 <body>
 	<div style="width:100%;height:auto;">

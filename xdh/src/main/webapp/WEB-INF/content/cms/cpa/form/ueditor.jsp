@@ -3,7 +3,7 @@
 	<%@ include file="/WEB-INF/content/cms/article/form/inputs.jsp"%>
 	<div class="control-group" id="ueditor_comment">
 		<input type="hidden" name="isWord" value="1">
-		<label class="control-label">内容：</label>
+		<label class="control-label">正文内容：</label>
 		<div class="controls">
 			<script id="ueditor" type="text/plain" name="content" style="width: 90%">${obj.content}</script>
 		</div>

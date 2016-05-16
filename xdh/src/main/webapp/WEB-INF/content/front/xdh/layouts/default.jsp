@@ -7,7 +7,7 @@
 <head>
 <meta name="keywords" content="嘉年华婚礼创意馆,嘉年华婚礼，嘉摄影,成都婚庆,成都大丰婚庆,成都大丰镇婚庆,成都大丰婚礼,嘉年华,成都大丰较好的婚庆，成都大丰婚庆推荐" />
 <meta name="description" content="嘉年华婚礼创意馆,嘉年华婚礼，嘉摄影,成都婚庆,成都大丰婚庆,成都大丰镇婚庆,成都大丰婚礼,嘉年华,成都大丰较好的婚庆，成都大丰婚庆推荐" />
-<meta name="baidu_union_verify" content="0b374701ce96a3288bc140ebabcf9d4e">
+<meta name="domain_verify" content="pmrgi33nmfuw4ir2ei2te2tonaxgg33neiwcez3vnfsceorcgizdqy3fmvrtonrsmzrtizbzgrqwezjsgmydgmjzgy2tkoddhfscelbcoruw2zktmf3gkir2ge2dmmztgyytenjshe2tg7i">
 
 <title>${jnhTitle eq null ? "" : jnhTitle}嘉年华婚礼创意馆</title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
