@@ -441,7 +441,7 @@ public class WebSiteFrontController {
 		}
 		mav.addObject("content", content);	
 		CpaArticle titleCpa = cpaService.getCpaArticleByType(3, 1);
-		if(conCpa != null){
+		if(titleCpa != null){
 			title = titleCpa.getContent();
 			title = title.replaceAll("\\&[a-zA-Z]{0,9};", "").replaceAll("<[^>]*>", "");
 		}
@@ -547,7 +547,7 @@ public class WebSiteFrontController {
 		ModelAndView mav = new ModelAndView();
 		List<CpaUser> rankList = this.getBargainRankingList();
 		mav.addObject("rankList", rankList);
-		boolean  isSuccess = false;
+		boolean isSuccess = false;
 		try {
 			if(userId == null || userId == 0){
 				//要取注册
@@ -557,27 +557,8 @@ public class WebSiteFrontController {
 				CpaUser cpaUser = cpaUserService.get(userId);
 				if(clickType == 1){
 					//自砍
-					Integer maxPrice = 200;
-					CpaResult result = new CpaResult();
-					result.setClickPersonId(userId);
-					String clickPrice = RandomUtil.randomDouble(maxPrice);
-					double clickPriceDouble = Double.parseDouble(clickPrice);
-					result.setClickPrice(clickPriceDouble);
-					result.setClikcPersonName(cpaUser.getName());
-					result.setCpaUserId(userId);
-					result.setUserName(cpaUser.getName());
-					double goodPrice = this.getMaxPrice();
-					double nowPrice = goodPrice - clickPriceDouble;
-					result.setNowPrice(nowPrice);
-					double minPrice = cpaUser.getNewPrice();
-					//小于则砍价次数用完
-					if(minPrice > maxPrice){
-						//可以继续砍价
-						cpaUser.setNewPrice(nowPrice);
-						cpaUserService.update(cpaUser);
-						cpaResultService.save(result);
-						isSuccess = true;
-					}
+					double barginPrice = this.bargain(cpaUser);
+					isSuccess = (barginPrice == -1);
 				}else if(clickType == 2){
 					//帮砍
 				}
@@ -592,8 +573,111 @@ public class WebSiteFrontController {
 		return mav;
 	}
 	
+	
+	
 	private List<CpaUser> getBargainRankingList(){
 		List<CpaUser> list = cpaUserService.getBargainRankingList();
 		return list;
+	}
+	
+	/**
+	 * 我要参加
+	 * @return
+	 */
+	@RequestMapping("/wz/inputPhone/{inviteId}")
+	public ModelAndView inputPhone(@PathVariable Long inviteId){
+		ModelAndView mav = new ModelAndView("/front/jnh/wz/cpa/inputPhone");
+		String title = "";
+		CpaArticle titleCpa = cpaService.getCpaArticleByType(3, 1);
+		if(titleCpa != null){
+			title = titleCpa.getContent();
+			title = title.replaceAll("\\&[a-zA-Z]{0,9};", "").replaceAll("<[^>]*>", "");
+		}
+		mav.addObject("title", title);
+		mav.addObject("inviteId", inviteId);
+		
+		return mav;
+	}
+	
+	/**
+	 * 确定砍价
+	 * @return
+	 */
+	@RequestMapping("/wz/confirmBargain/{inviteId}")
+	public ModelAndView confirmBargain(@PathVariable Long inviteId, @RequestParam String mobile){
+		int result = 0;//1-成功  2-失败 3-没有报名参加 4-没有输入电话号码
+		ModelAndView mav = new ModelAndView();
+		String title = "";
+		CpaArticle titleCpa = cpaService.getCpaArticleByType(3, 1);
+		if(titleCpa != null){
+			title = titleCpa.getContent();
+			title = title.replaceAll("\\&[a-zA-Z]{0,9};", "").replaceAll("<[^>]*>", "");
+		}
+		mav.addObject("title", title);
+		mav.addObject("inviteId", inviteId);
+		if(StringUtils.isBlank(mobile)){
+			mav.addObject("result", 4);
+			mav.setViewName("/front/jnh/wz/cpa/inputPhone");
+			return mav;
+		}
+		
+		CpaUser cpaUser = cpaUserService.getUserByPhone(mobile);
+		if(cpaUser == null){
+			mav.setViewName("/front/jnh/wz/cpa/inputPhone");
+			mav.addObject("result", 3);
+			return mav;
+		}
+		
+		double bargainPrice = this.bargain(cpaUser);
+		result = (bargainPrice == -1) ? 2 : 1;
+		mav.addObject("result", result);
+		if(result == 1){
+			mav.addObject("cpaUser", cpaUser);
+			mav.addObject("bargainPrice", bargainPrice);
+			mav.setViewName("/front/jnh/wz/cpa/index");
+		}else{
+			mav.setViewName("/front/jnh/wz/cpa/inputPhone");
+		}
+
+		return mav;
+	}
+	
+	/**
+	 * 砍价
+	 * @param cpaUser 用户信息
+	 * @return -1  失败   其他成功
+	 */
+	private double bargain(CpaUser cpaUser){
+		double isSuccess = -1;
+		Integer maxPrice = 200;
+		CpaResult result = new CpaResult();
+		result.setClickPersonId(cpaUser.getId());
+		String clickPrice = RandomUtil.randomDouble(maxPrice);
+		double clickPriceDouble = Double.parseDouble(clickPrice);
+		result.setClickPrice(clickPriceDouble);
+		result.setClikcPersonName(cpaUser.getName());
+		result.setCpaUserId(cpaUser.getId());
+		result.setUserName(cpaUser.getName());
+		double goodPrice = this.getMaxPrice();
+		double nowPrice = goodPrice - clickPriceDouble;
+		result.setNowPrice(nowPrice);
+		double minPrice = cpaUser.getNewPrice();
+		//小于则砍价次数用完
+		if(minPrice > maxPrice){
+			//可以继续砍价
+			cpaUser.setNewPrice(nowPrice);
+			try {
+				cpaUserService.update(cpaUser);
+				cpaResultService.save(result);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			isSuccess = clickPriceDouble;
+		}
+		
+		return isSuccess;
+		
 	}
 }

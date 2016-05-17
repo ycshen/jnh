@@ -75,8 +75,21 @@
 	function join(){
 		window.location.href = "${ctx}/wz/join/${inviteId}";
 	}
-	function join(){
-		window.location.href = "${ctx}/wz/join/${inviteId}";
+	function ownBargain(){
+		var inviteId = '${inviteId}';
+		var ownId = '${ownId}';
+		if(inviteId == ""){
+			inviteId = 0;
+		}
+
+		if(ownId == ""){
+			//输入手机号或者报名参加
+			window.location.href = "${ctx}/wz/inputPhone/" + inviteId;
+		}else{
+			window.location.href = "${ctx}/wz/kanSelf/" + ownId + "/" + inviteId;
+		}
+		
+		
 	}
 </script>
 </head>
@@ -97,7 +110,7 @@
 			</div>
 			<div class="main_div_tip_btn">
 				
-				<input onclick="join();" type="button" value="&nbsp;自砍一刀&nbsp;&nbsp;" class="btn btn-danger"/>
+				<input onclick="ownBargain();" type="button" value="&nbsp;自砍一刀&nbsp;&nbsp;" class="btn btn-danger"/>
 				<input onclick="join();" type="button" value="&nbsp;请好友帮砍&nbsp;&nbsp;" class="btn btn-danger"/>
 				<c:if test="${inviteId != 0}">
 					<input onclick="join();" type="button" value="&nbsp;帮砍一刀&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" class="btn btn-danger"/>
