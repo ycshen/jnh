@@ -54,6 +54,10 @@
 		});
 		
 	}
+	function zc(){
+		window.location.href = "${ctx}/zc.html";
+	}
+		
 </script>
 </head>
 <body class="login_bg_color">
@@ -76,7 +80,9 @@
 				<input type="password" name="password" class="login_login_center_txt" placeholder="密码"/><br/>
 				<input type="checkbox" class="login_login_center_chk" name="rememberMe" value="true"/>记住我<br/>
 				<input type="submit" class="login_login_center_btn" value="立即登陆嘉年华"/>
+				
 			</form>
+			还没账号？点击<a href="${ctx}/xdh/zc.html" style="color:red;">这里</a>注册
 			</div>
 			
 		</div>
