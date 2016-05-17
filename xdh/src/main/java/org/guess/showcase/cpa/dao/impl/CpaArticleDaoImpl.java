@@ -15,9 +15,11 @@ public class CpaArticleDaoImpl extends HibernateDao<CpaArticle,Long> implements 
 			Integer articleType) {
 		String sql = "from CpaArticle as a where a.contentType = " + contentType + " and articleType = " + articleType;
 		
-		List<CpaArticle> list = getSession()
-				.createQuery(sql)
-				.list();
-		return list.get(0);
+		List<CpaArticle> list = getSession().createQuery(sql).list();
+		if(list != null && list.size() > 0){
+			return list.get(0);
+		}
+		
+		return null;
 	}
 }

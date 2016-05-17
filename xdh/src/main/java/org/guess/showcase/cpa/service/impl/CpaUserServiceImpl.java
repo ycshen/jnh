@@ -1,5 +1,7 @@
 package org.guess.showcase.cpa.service.impl;
 
+import java.util.List;
+
 import org.guess.core.service.BaseServiceImpl;
 import org.guess.showcase.cpa.dao.CpaUserDao;
 import org.guess.showcase.cpa.model.CpaUser;
@@ -17,6 +19,12 @@ public class CpaUserServiceImpl  extends BaseServiceImpl<CpaUser, Long> implemen
 	public CpaUser getUserByPhone(String phone) {
 		
 		return cpaUserDao.getUserByPhone(phone);
+	}
+
+	@Override
+	public List<CpaUser> getBargainRankingList() {
+		// TODO Auto-generated method stub
+		return cpaUserDao.getBargainRankingList();
 	}
 
 	

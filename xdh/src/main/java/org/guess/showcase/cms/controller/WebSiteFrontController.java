@@ -15,6 +15,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.guess.core.orm.Page;
 import org.guess.core.orm.PageRequest;
 import org.guess.core.orm.PropertyFilter;
@@ -30,9 +31,12 @@ import org.guess.showcase.cms.service.GuestService;
 import org.guess.showcase.cms.service.ListenerLogService;
 import org.guess.showcase.cms.util.CmsConstants;
 import org.guess.showcase.cpa.model.CpaArticle;
+import org.guess.showcase.cpa.model.CpaResult;
 import org.guess.showcase.cpa.model.CpaUser;
 import org.guess.showcase.cpa.service.CpaArticleService;
+import org.guess.showcase.cpa.service.CpaResultService;
 import org.guess.showcase.cpa.service.CpaUserService;
+import org.guess.showcase.cpa.util.RandomUtil;
 import org.guess.showcase.cpa.util.UserAgent;
 import org.guess.showcase.cpa.util.UserAgentUtil;
 import org.guess.sys.service.LogService;
@@ -66,6 +70,8 @@ public class WebSiteFrontController {
 	private CpaArticleService cpaService;
 	@Autowired
 	private CpaUserService cpaUserService;
+	@Autowired
+	private CpaResultService cpaResultService;
 	
 	/**
 	 * 网站建设首页(wz.52jnh.com)
@@ -363,11 +369,15 @@ public class WebSiteFrontController {
 	}
 	
 	/**
-	 * 砍价
+	 * 邀约砍价
 	 * @return
 	 */
-	@RequestMapping("/wz/kanjia")
-	public ModelAndView kanjia(){
+	@RequestMapping("/wz/kanjia/{inviteId}")
+	public ModelAndView kanjia(@PathVariable Long inviteId){
+		if(inviteId == null){
+			inviteId = 0l;
+		}
+		
 		ModelAndView mav = new ModelAndView("/front/jnh/wz/cpa/index");	
 		String content = "";
 		String title = "";
@@ -379,8 +389,40 @@ public class WebSiteFrontController {
 		CpaArticle titleCpa = cpaService.getCpaArticleByType(3, 1);
 		if(conCpa != null){
 			title = titleCpa.getContent();
+			title = title.replaceAll("\\&[a-zA-Z]{0,9};", "").replaceAll("<[^>]*>", "");
 		}
 		mav.addObject("title", title);
+		mav.addObject("inviteId", inviteId);
+		List<CpaUser> rankList = this.getBargainRankingList();
+		mav.addObject("rankList", rankList);
+		
+		return mav;
+	}
+	
+	/**
+	 * 砍价
+	 * @return
+	 */
+	@RequestMapping("/wz/kanjia")
+	public ModelAndView kanjia(){
+		ModelAndView mav = new ModelAndView("/front/jnh/wz/cpa/index");	
+		List<CpaUser> rankList = this.getBargainRankingList();
+		mav.addObject("rankList", rankList);
+		String content = "";
+		String title = "";
+		CpaArticle conCpa = cpaService.getCpaArticleByType(1, 1);
+		if(conCpa != null){
+			content = conCpa.getContent();
+		}
+		mav.addObject("content", content);	
+		CpaArticle titleCpa = cpaService.getCpaArticleByType(3, 1);
+		if(conCpa != null){
+			title = titleCpa.getContent();
+			title = title.replaceAll("\\&[a-zA-Z]{0,9};", "").replaceAll("<[^>]*>", "");
+		}
+		mav.addObject("title", title);
+		mav.addObject("inviteId", 0);
+		
 		return mav;
 	}
 	
@@ -388,8 +430,8 @@ public class WebSiteFrontController {
 	 * 我要参加
 	 * @return
 	 */
-	@RequestMapping("/wz/join")
-	public ModelAndView join(){
+	@RequestMapping("/wz/join/{inviteId}")
+	public ModelAndView join(@PathVariable Long inviteId){
 		ModelAndView mav = new ModelAndView("/front/jnh/wz/cpa/wycj");
 		String content = "";
 		String title = "";
@@ -401,8 +443,10 @@ public class WebSiteFrontController {
 		CpaArticle titleCpa = cpaService.getCpaArticleByType(3, 1);
 		if(conCpa != null){
 			title = titleCpa.getContent();
+			title = title.replaceAll("\\&[a-zA-Z]{0,9};", "").replaceAll("<[^>]*>", "");
 		}
 		mav.addObject("title", title);
+		mav.addObject("inviteId", inviteId);
 		return mav;
 	}
 	
@@ -411,9 +455,9 @@ public class WebSiteFrontController {
 	 * @return
 	 */
 	@RequestMapping("/wz/register")
-	@ResponseBody
-	public int register(@ModelAttribute CpaUser cpaUser, HttpServletRequest request){
-		int result = 0;
+	public ModelAndView register(@ModelAttribute CpaUser cpaUser, HttpServletRequest request){
+		ModelAndView mav = new ModelAndView("/front/jnh/wz/cpa/cjcg");
+		String downloadUrl = "";
 		try {
 			String userAgentHeader=request.getHeader("user-agent").toUpperCase();
 			UserAgent userAgent = UserAgentUtil.getUserAgent(userAgentHeader);
@@ -434,22 +478,122 @@ public class WebSiteFrontController {
 				oldCpaUser.setPlatformType(playFormType);
 				cpaUserService.update(oldCpaUser);
 			}else{
+				cpaUser.setNewPrice(this.getMaxPrice());
 				cpaUserService.save(cpaUser);
 			}
 			
+			Integer contentType = 0;
 			if("IOS".equals(playFormType)|| "IPAD".equals(playFormType) || "IPHONE".equals(playFormType)){
-				result = 2; //ios
+				//ios
+				contentType = 4;
 			}else if("ANDROID".equals(playFormType)){
-				result = 3; //android
+				//android
+				contentType = 5;
 			}else{
-				result = 1;
+				contentType = 5;
+			}
+			
+			if(contentType != 0){
+				CpaArticle urlCpa = cpaService.getCpaArticleByType(contentType, 1);
+				if(urlCpa != null){
+					downloadUrl = urlCpa.getContent();
+					downloadUrl = downloadUrl.replaceAll("\\&[a-zA-Z]{0,9};", "").replaceAll("<[^>]*>", "");
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = 0;
+			
 		}
 		
-		return result;
+		mav.addObject("downloadUrl", downloadUrl);
+		mav.addObject("cpaUser", cpaUser);
+		
+		CpaArticle conCpa = cpaService.getCpaArticleByType(2, 1);
+		if(conCpa != null){
+			mav.addObject("content", conCpa.getContent());
+		}
+		
+		return mav;
 	}
 	
+	/**
+	 * 获取最大价格
+	 * @return
+	 */
+	private Double getMaxPrice(){
+		String price = "";
+		CpaArticle priceCpa = cpaService.getCpaArticleByType(6, 1);
+		if(priceCpa != null){
+			price = priceCpa.getContent();
+			price = price.replaceAll("\\&[a-zA-Z]{0,9};", "").replaceAll("<[^>]*>", "");
+		}
+		
+		if(StringUtils.isNotBlank(price)){
+			return Double.parseDouble(price);
+		}
+		
+		return 4999.99;
+	}
+	
+	/**
+	 * 
+	 * @param clickType
+	 * @param userId 砍价者id
+	 * @param beikanUserId 被砍者id
+	 * @return
+	 */
+	@RequestMapping("/wz/kanSelf/{clickType}/{userId}/{beikanUserId}")
+	public ModelAndView kanSelf(@PathVariable("clickType") Integer clickType, @PathVariable("userId") Long userId,@PathVariable("beikanUserId") Long beikanUserId){
+		ModelAndView mav = new ModelAndView();
+		List<CpaUser> rankList = this.getBargainRankingList();
+		mav.addObject("rankList", rankList);
+		boolean  isSuccess = false;
+		try {
+			if(userId == null || userId == 0){
+				//要取注册
+			}else{
+				//砍价
+				mav.setViewName("/front/jnh/wz/cpa/index");
+				CpaUser cpaUser = cpaUserService.get(userId);
+				if(clickType == 1){
+					//自砍
+					Integer maxPrice = 200;
+					CpaResult result = new CpaResult();
+					result.setClickPersonId(userId);
+					String clickPrice = RandomUtil.randomDouble(maxPrice);
+					double clickPriceDouble = Double.parseDouble(clickPrice);
+					result.setClickPrice(clickPriceDouble);
+					result.setClikcPersonName(cpaUser.getName());
+					result.setCpaUserId(userId);
+					result.setUserName(cpaUser.getName());
+					double goodPrice = this.getMaxPrice();
+					double nowPrice = goodPrice - clickPriceDouble;
+					result.setNowPrice(nowPrice);
+					double minPrice = cpaUser.getNewPrice();
+					//小于则砍价次数用完
+					if(minPrice > maxPrice){
+						//可以继续砍价
+						cpaUser.setNewPrice(nowPrice);
+						cpaUserService.update(cpaUser);
+						cpaResultService.save(result);
+						isSuccess = true;
+					}
+				}else if(clickType == 2){
+					//帮砍
+				}
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		mav.addObject("isSuccess", isSuccess);
+		
+		return mav;
+	}
+	
+	private List<CpaUser> getBargainRankingList(){
+		List<CpaUser> list = cpaUserService.getBargainRankingList();
+		return list;
+	}
 }

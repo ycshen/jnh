@@ -97,6 +97,12 @@ $(document).ready(function() {
 				 return "商品详情";
 			 }else if(value == "3"){
 				 return "活动主题";
+			 }else if(value == "4"){
+				 return "IOS下载地址";
+			 }else if(value == "5"){
+				 return "Android下载地址";
+			 }else if(value == "6"){
+				 return "商品价格";
 			 }
 		 }},
 		 {cName:"articleType",cValue:"产品类型", format: function(i, value, item){

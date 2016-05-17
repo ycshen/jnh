@@ -43,6 +43,9 @@
 											<option value="1">活动规则</option>
 											<option value="2">商品详情</option>
 											<option value="3">活动主题</option>
+											<option value="4">IOS下载地址</option>
+											<option value="5">Android下载地址</option>
+											<option value="6">商品价格</option>
 										</select>
 									</div>
 								</div>

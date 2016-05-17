@@ -16,10 +16,21 @@ public class CpaUserDaoImpl extends HibernateDao<CpaUser,Long> implements CpaUse
 	public CpaUser getUserByPhone(String phone) {
 		String sql = "from CpaUser as a where a.mobile='" + phone + "'";
 		
-		List<CpaUser> list = getSession()
-				.createQuery(sql)
-				.list();
-		return list.get(0);
+		List<CpaUser> list = getSession() .createQuery(sql).list();
+		if(list != null && list.size() > 0){
+			return list.get(0);
+		}
+		
+		return null;
+	}
+
+	@Override
+	public List<CpaUser> getBargainRankingList() {
+		String sql = "from CpaUser ORDER BY newPrice desc limit 10";
+		
+		List<CpaUser> list = getSession() .createQuery(sql).list();
+		
+		return list;
 	}
 
 }

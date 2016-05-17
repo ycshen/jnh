@@ -6,12 +6,13 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<title><title>${title}</title></title>
+<title>${title}</title>
 <meta name="keywords" content="小青年网络科技有限公司" />
 <meta name="description" content="小青年网络科技有限公司" />
 
 
 <%@ include file="../plugins/bootstrap.jsp"%>
+<script src="${ctx }/assets/js/layer/layer.js" type="text/javascript"></script>
 <style type="text/css">
 	.main_div{
 		width: 100%;
@@ -67,20 +68,70 @@
 	}  
 	.main_div_form {
 		width: 100%;
-		margin: 10px 0px 10px 0px;
+		margin: 50px 0px 10px 0px;
 		text-align: center;
+		
 	} 
 </style>
 <script type="text/javascript">
 	function back(){
 		window.location.href = "${ctx}/wz/kanjia";
+	}
+
+	function register(){
+		var flag = true;
+		var name = $("#txtName").val();
+		if(name == null || name == ""){
+			layer.alert('请输入用户名!', {
+			    icon: 2,
+			    skin: 'layer-ext-moon'
+			});
+			flag = false;
+			return flag;
 		}
+
+		if(name.length < 2){
+			layer.alert('用户名至少由2个字符组成!', {
+			    icon: 2,
+			    skin: 'layer-ext-moon'
+			});
+			flag = false;
+			return flag;
+		}
+
+		var mobile = $("#txtPhone").val();
+		if(mobile == null || mobile == ""){
+			layer.alert('请输入电话号码!', {
+			    icon: 2,
+			    skin: 'layer-ext-moon'
+			});
+			flag = false;
+			return flag;
+		}
+
+		if(mobile.length != 11){
+			layer.alert('请输入正确的电话号码!', {
+			    icon: 2,
+			    skin: 'layer-ext-moon'
+			});
+			flag = false;
+			return flag;
+		}
+
+		if(flag){
+			var domainForm = window.document.getElementById("domainForm");//获取domainForm对象
+			domainForm.action ="${ctx}/wz/register";
+	        domainForm.submit();
+		}
+		
+	}
 </script>
 </head>
 <body>
 	<div class="main_div">
 		<div class="main_div_form">
-		<form action="${ctx}/wz/register" method="post">
+		<form  method="post" id="domainForm">
+			<input name="inviteId" value="${inviteId}" type="hidden"/>
 		  <div class="form-group">
 		    <input type="text" class="form-control" id="txtName" placeholder="请输入用户名" name="name">
 		  </div>
@@ -88,7 +139,7 @@
 		    <input type="text" class="form-control" id="txtPhone" placeholder="请输入手机号" name="mobile" onkeyup="this.value=this.value.replace(/\D/g,'')" maxlength="11">
 		  </div>
 		  
-		  <button type="submit" class="btn btn-danger">报名参与</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		  <button type="botton" class="btn btn-danger" onclick="return register();">报名参与</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		  <button onclick="back();" type="button" class="btn btn-success">返回</button>
 		</form>
 		</div>

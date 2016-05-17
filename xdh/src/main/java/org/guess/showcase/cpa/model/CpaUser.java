@@ -20,6 +20,9 @@ public class CpaUser extends IdEntity{
     private String platformType;//平台类型  
     private String platformSeries;//平台系列  
     private String platformVersion;//平台版本  
+    private Long inviteId; //邀请人
+    private Double newPrice;
+    private Integer clickNum;
 	public String getName() {
 		return name;
 	}
@@ -61,5 +64,23 @@ public class CpaUser extends IdEntity{
 	}
 	public void setPlatformVersion(String platformVersion) {
 		this.platformVersion = platformVersion;
+	}
+	public Long getInviteId() {
+		return inviteId;
+	}
+	public void setInviteId(Long inviteId) {
+		this.inviteId = inviteId;
+	}
+	public Double getNewPrice() {
+		return newPrice;
+	}
+	public void setNewPrice(Double newPrice) {
+		this.newPrice = newPrice;
+	}
+	public Integer getClickNum() {
+		return clickNum;
+	}
+	public void setClickNum(Integer clickNum) {
+		this.clickNum = clickNum;
 	}
 }

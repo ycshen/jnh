@@ -62,9 +62,9 @@
 			</div>
 			<div class="banner_ul_li">
 				<div class="banner_ul_li_con">
-					<a href="${ctx }/xdh/article/37.html">
-					<div class="banner_ul_li_con_top">关于我们</div>
-					<div class="banner_ul_li_con_bottom">ABOUT US</div>
+					<a href="${ctx}/blog/page/1">
+					<div class="banner_ul_li_con_top">IT博客</div>
+					<div class="banner_ul_li_con_bottom">IT BLOG</div>
 					</a>
 				</div>
 				<div class="banner_ul_li_img"></div>

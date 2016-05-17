@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ include file="../../common/head.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -41,6 +42,10 @@
 		text-align: center;
 		margin: 10px 0px 10px 0px;
 	} 
+	
+	.main_div_tip_btn input{
+		margin: 10px 10px 10px 10px;
+	}
 	.main_div_tip_list{
 		width: 100%;
 	}
@@ -68,8 +73,11 @@
 </style>
 <script type="text/javascript">
 	function join(){
-		window.location.href = "${ctx}/wz/join";
-		}
+		window.location.href = "${ctx}/wz/join/${inviteId}";
+	}
+	function join(){
+		window.location.href = "${ctx}/wz/join/${inviteId}";
+	}
 </script>
 </head>
 <body>
@@ -88,8 +96,14 @@
 					&nbsp;&nbsp;&nbsp;&nbsp;已经有X位好友帮你砍价了，你当前的价格为XXXX元，离福利更近一步了，疯狂的要求好友帮忙吧！
 			</div>
 			<div class="main_div_tip_btn">
-				<input onclick="join();" type="button" value="&nbsp;&nbsp;&nbsp;&nbsp;帮砍一刀&nbsp;&nbsp;&nbsp;&nbsp;" class="btn btn-danger"/>&nbsp;&nbsp;&nbsp;&nbsp;
-				<input onclick="join();"  type="button" value="&nbsp;&nbsp;&nbsp;&nbsp;我要参加&nbsp;&nbsp;&nbsp;&nbsp;" class="btn btn-danger"/>
+				
+				<input onclick="join();" type="button" value="&nbsp;自砍一刀&nbsp;&nbsp;" class="btn btn-danger"/>
+				<input onclick="join();" type="button" value="&nbsp;请好友帮砍&nbsp;&nbsp;" class="btn btn-danger"/>
+				<c:if test="${inviteId != 0}">
+					<input onclick="join();" type="button" value="&nbsp;帮砍一刀&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" class="btn btn-danger"/>
+				</c:if>
+				<input onclick="join();"  type="button" value="&nbsp;我要参加&nbsp;&nbsp;" class="btn btn-danger"/>
+				<input onclick="query();" type="button" value="砍后价格查询" class="btn btn-danger"/>
 			</div>
 			<div class="main_div_tip_list">
 				<table class="table">
@@ -135,26 +149,18 @@
 						<td>用户名</td>
 						<td>价格</td>
 					</tr>
-					<tr>
-						<td>1</td>
-						<td>33.56</td>
-						<td>131</td>
-					</tr>
-					
-					<tr>
-						<td>2</td>
-						<td>33.56</td>
-						<td>131</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>33.56</td>
-						<td>131</td>
-					</tr>
+					<c:forEach items="${rankList}" var="cpaUser" varStatus="vs">
+						<tr>
+							<td>${vs.index + 1}</td>
+							<td>${cpaUser.name}</td>
+							<td>${cpaUser.newPrice}</td>
+						</tr>
+					</c:forEach>
 				</table>
 				</div>
 			</div>
 		</div>
 	</div>
+	<input type="hidden" value="${inviteId}" id="hidInviteId"/>
 </body>
 </html>
