@@ -24,6 +24,9 @@
 </head>
 <body>
 	<div style="width:100%;height:auto;background-color:#FFF;float:left;">
+	<div style="width:1000px;margin-left:auto;margin-right:auto;height:auto;">
+		<%@ include file="../jnh/wz/plugins/ad1000_100.jsp"%>
+	</div>
 		<div style="width:1000px;margin-left:auto;margin-right:auto;height:auto;">
 						<div class="neicont">
 							<div class="dianpu" style="width:900px; border:0px;background-color:#FFF;">

@@ -292,8 +292,10 @@ public class Uploader {
 		/*String servletPath = this.request.getServletPath();
 		String realPath = this.request.getSession().getServletContext()
 				.getRealPath(servletPath);*/
-		String realPath = ServletUtils.getRealPath(request) ;
-		return new File(realPath) + "/" + path;
+		String realPath = ServletUtils.getRealPath(request) ;	
+		String physicalPath = new File(realPath) + "/" + path;
+		System.out.println("文件上传路径:" + physicalPath);
+		return physicalPath;
 	}
 
 	/**

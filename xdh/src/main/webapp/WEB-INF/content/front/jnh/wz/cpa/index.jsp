@@ -13,6 +13,7 @@
 
 
 <%@ include file="../plugins/bootstrap.jsp"%>
+<script src="${ctx }/assets/js/layer/layer.js" type="text/javascript"></script>
 <style type="text/css">
 	.main_div{
 		width: 100%;
@@ -91,6 +92,33 @@
 		
 		
 	}
+	function please(){
+		layer.alert('请在右上角菜单中分享至朋友或者朋友圈!', {
+		    icon: 1,
+		    skin: 'layer-ext-moon'
+		});	
+	}
+
+	function query(){
+		window.location.href = "${ctx}/wz/clickQuery/";
+	}
+	$(function(){
+		$("#btnPlease").hide();
+		var isSuccess = '${isSuccess}';
+		if(isSuccess != ""){
+			$("#homeTip").hide();
+			$("#btnOwn").hide();
+			$("#btnAfterBargain").hide();
+			$("#btnJoin").hide();
+			$("#btnPlease").show();
+			if(isSuccess == "true"){
+				$("#spanTip").html("亲，您成功的砍下<span style='color:red;'> ${bargainPrice} </span>元,目前商品价格为：<span style='color:red;'> ${cpaUser.newPrice}</span> 元~~~");
+			}else{
+				$("#spanTip").html("亲，您的砍价次数已经用完~~~");
+			}
+			
+		} 
+	});
 </script>
 </head>
 <body>
@@ -104,19 +132,22 @@
 			</div>
 		</div>
 		<div class="main_div_tip">
-			<div class="main_div_tip_wz">
-				亲爱的XXXX:<br/>
-					&nbsp;&nbsp;&nbsp;&nbsp;已经有X位好友帮你砍价了，你当前的价格为XXXX元，离福利更近一步了，疯狂的要求好友帮忙吧！
+			<div class="main_div_tip_wz" id="homeTip">
+				亲爱的<span></span>:<br/>
+					&nbsp;&nbsp;&nbsp;&nbsp;已经有<span style="color:red;">0</span>位好友帮你砍价了，你当前的价格为<span style="color:red;">${goodPrice}</span>元，离福利更近一步了，疯狂的要求好友帮忙吧！
+			</div>
+			<div class="main_div_tip_wz" id="afterTip">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span id="spanTip"></span>
 			</div>
 			<div class="main_div_tip_btn">
 				
-				<input onclick="ownBargain();" type="button" value="&nbsp;自砍一刀&nbsp;&nbsp;" class="btn btn-danger"/>
-				<input onclick="join();" type="button" value="&nbsp;请好友帮砍&nbsp;&nbsp;" class="btn btn-danger"/>
+				<input onclick="ownBargain();" type="button" value="&nbsp;自砍一刀&nbsp;&nbsp;" class="btn btn-danger" id="btnOwn"/>
+				<input onclick="please();" type="button" value="&nbsp;请好友帮砍&nbsp;&nbsp;" class="btn btn-danger" id="btnPlease"/>
 				<c:if test="${inviteId != 0}">
 					<input onclick="join();" type="button" value="&nbsp;帮砍一刀&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" class="btn btn-danger"/>
 				</c:if>
-				<input onclick="join();"  type="button" value="&nbsp;我要参加&nbsp;&nbsp;" class="btn btn-danger"/>
-				<input onclick="query();" type="button" value="砍后价格查询" class="btn btn-danger"/>
+				<input onclick="join();"  type="button" value="&nbsp;我要参加&nbsp;&nbsp;" class="btn btn-danger" id="btnJoin"/>
+				<input onclick="query();" type="button" value="砍后价格查询" class="btn btn-danger" id="btnAfterBargain"/>
 			</div>
 			<div class="main_div_tip_list">
 				<table class="table">

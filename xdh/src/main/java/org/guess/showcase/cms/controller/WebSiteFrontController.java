@@ -6,11 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,12 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.guess.core.orm.Page;
 import org.guess.core.orm.PageRequest;
-import org.guess.core.orm.PropertyFilter;
 import org.guess.core.orm.PageRequest.Sort;
+import org.guess.core.orm.PropertyFilter;
 import org.guess.core.utils.HttpUtil;
 import org.guess.core.utils.web.ServletUtils;
-import org.guess.showcase.cms.model.Article;
-import org.guess.showcase.cms.model.Category;
 import org.guess.showcase.cms.model.Guest;
 import org.guess.showcase.cms.model.ListenerLog;
 import org.guess.showcase.cms.service.ArticleService;
@@ -41,17 +36,14 @@ import org.guess.showcase.cpa.util.UserAgent;
 import org.guess.showcase.cpa.util.UserAgentUtil;
 import org.guess.sys.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.common.collect.Lists;
-import com.google.gson.Gson;
 
 /**
  * @author 申鱼川 E-mail:shenyuchuan@xiaojiuwo.cn
@@ -422,7 +414,7 @@ public class WebSiteFrontController {
 		}
 		mav.addObject("title", title);
 		mav.addObject("inviteId", 0);
-		
+		mav.addObject("goodPrice", this.getMaxPrice());
 		return mav;
 	}
 	
@@ -559,6 +551,9 @@ public class WebSiteFrontController {
 					//自砍
 					double barginPrice = this.bargain(cpaUser);
 					isSuccess = (barginPrice == -1);
+					if(isSuccess){
+						mav.addObject("barginPrice", barginPrice);
+					}
 				}else if(clickType == 2){
 					//帮砍
 				}
@@ -605,7 +600,7 @@ public class WebSiteFrontController {
 	 */
 	@RequestMapping("/wz/confirmBargain/{inviteId}")
 	public ModelAndView confirmBargain(@PathVariable Long inviteId, @RequestParam String mobile){
-		int result = 0;//1-成功  2-失败 3-没有报名参加 4-没有输入电话号码
+		int result = 0;//1-成功  2-失败 3-没有报名参加 4-没有输入电话号码,5-已砍过
 		ModelAndView mav = new ModelAndView();
 		String title = "";
 		CpaArticle titleCpa = cpaService.getCpaArticleByType(3, 1);
@@ -628,12 +623,33 @@ public class WebSiteFrontController {
 			return mav;
 		}
 		
+		//判断是否砍过
+		Long userId = cpaUser.getId();
+		boolean isBargain = false;
+		List<CpaResult> list = this.getCpaResultByUserId(userId);
+		if(list != null && list.size() > 0){
+			for (CpaResult cpaResult : list) {
+				if(cpaResult.getClickPersonId() == userId){
+					isBargain = true;
+					break;
+				}
+			}
+		}
+		
+		if(isBargain){
+			mav.setViewName("/front/jnh/wz/cpa/inputPhone");
+			mav.addObject("result", 5);
+			return mav;
+		}
+		
 		double bargainPrice = this.bargain(cpaUser);
 		result = (bargainPrice == -1) ? 2 : 1;
 		mav.addObject("result", result);
 		if(result == 1){
 			mav.addObject("cpaUser", cpaUser);
 			mav.addObject("bargainPrice", bargainPrice);
+			mav.addObject("isSuccess", true);
+
 			mav.setViewName("/front/jnh/wz/cpa/index");
 		}else{
 			mav.setViewName("/front/jnh/wz/cpa/inputPhone");
@@ -658,8 +674,8 @@ public class WebSiteFrontController {
 		result.setClikcPersonName(cpaUser.getName());
 		result.setCpaUserId(cpaUser.getId());
 		result.setUserName(cpaUser.getName());
-		double goodPrice = this.getMaxPrice();
-		double nowPrice = goodPrice - clickPriceDouble;
+		double nowPrice = cpaUser.getNewPrice() - clickPriceDouble;
+		nowPrice = RandomUtil.retainTwoDigits(nowPrice);
 		result.setNowPrice(nowPrice);
 		double minPrice = cpaUser.getNewPrice();
 		//小于则砍价次数用完
@@ -678,6 +694,70 @@ public class WebSiteFrontController {
 		}
 		
 		return isSuccess;
+	}
+	/**
+	 * 我要参加
+	 * @return
+	 */
+	@RequestMapping("/wz/clickQuery")
+	public ModelAndView clickQuery(){
+		ModelAndView mav = new ModelAndView("/front/jnh/wz/cpa/query");
+		String title = "";
+		CpaArticle titleCpa = cpaService.getCpaArticleByType(3, 1);
+		if(titleCpa != null){
+			title = titleCpa.getContent();
+			title = title.replaceAll("\\&[a-zA-Z]{0,9};", "").replaceAll("<[^>]*>", "");
+		}
+		mav.addObject("title", title);
+		return mav;
+	}
+	
+	/**
+	 * 确定砍价
+	 * @return
+	 */
+	@RequestMapping("/wz/query")
+	public ModelAndView query(@RequestParam String mobile){
+		int result = 0;//1-成功  2-查询失败 3-没有报名参加 4-没有输入电话号码
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/front/jnh/wz/cpa/query");
+		String title = "";
+		CpaArticle titleCpa = cpaService.getCpaArticleByType(3, 1);
+		if(titleCpa != null){
+			title = titleCpa.getContent();
+			title = title.replaceAll("\\&[a-zA-Z]{0,9};", "").replaceAll("<[^>]*>", "");
+		}
+		mav.addObject("title", title);
+		if(StringUtils.isBlank(mobile)){
+			mav.addObject("result", 4);
+			return mav;
+		}
 		
+		CpaUser cpaUser = cpaUserService.getUserByPhone(mobile);
+		if(cpaUser == null){
+			mav.addObject("result", 3);
+			return mav;
+		}
+
+		mav.addObject("cpaUser", cpaUser);
+
+		return mav;
+	}
+	
+	private List<CpaResult> getCpaResultByUserId(Long userId){
+		List<CpaResult> resultList = cpaResultService.getCpaResultByUserId(userId);
+		
+		return resultList;
+	}
+	
+	/**
+	 * 确定砍价
+	 * @return
+	 */
+	@RequestMapping("/wz/weixinIndex/{index}")
+	public ModelAndView weixin_Baidu(@PathVariable String index){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/front/jnh/wz/cpa/weixinIndex");
+		return mav;
 	}
 }

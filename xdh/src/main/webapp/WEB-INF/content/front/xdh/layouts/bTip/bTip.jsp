@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <link href="${ctx }/assets/css/bTip.css" rel="stylesheet" type="text/css"/>
-
 <div class="btip_main">
 	
 	
@@ -41,3 +40,7 @@
 		</div>
 	</div>
 </div>
+	<div class="btip_link">
+		<div class="btip_link_tip">
+	<%@ include file="../../../jnh/wz/plugins/ad1000_100.jsp"%>
+</div></div>

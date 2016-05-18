@@ -64,6 +64,9 @@
 </head>
 <body>
 	<%@ include file="plugins/banner.jsp"%>
+	<div class="container">
+		<%@ include file="../wz/plugins/ad1000_100.jsp"%>
+	</div>
 	<div class="container">		
 		<div class="a_con1">
 			<div class="a_con1_left">
@@ -96,6 +99,9 @@
 		 	
 		</div>
 		
+	</div>
+	<div class="container">
+		<%@ include file="../wz/plugins/ad1000_100.jsp"%>
 	</div>
 	<div class="container">
 		<%@ include file="plugins/partner.jsp"%>

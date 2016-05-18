@@ -23,6 +23,7 @@
 	//加载配置文件
 	String propertiesPath = request.getSession().getServletContext()
 			.getRealPath(currentPath + "config.properties");
+	System.out.println("config.properties:" + propertiesPath);
 	Properties properties = new Properties();
 
 	try {
@@ -63,7 +64,7 @@
 
 	// 获取前端提交的path路径
 	String dir = request.getParameter("dir");
-
+	System.out.println(dir);
 	//普通请求中拿不到参数， 则从上传表单中拿
 	if (dir == null) {
 		dir = up.getParameter("dir");
@@ -83,6 +84,7 @@
 
 	}
 
+	System.out.println("dir:" + dir);
 	up.setSavePath(dir);
 	String[] fileType = { ".gif", ".png", ".jpg", ".jpeg", ".bmp" };
 	up.setAllowFiles(fileType);

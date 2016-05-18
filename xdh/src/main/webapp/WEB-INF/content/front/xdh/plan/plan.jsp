@@ -19,6 +19,9 @@
 					<input type="text" class="plan_txt" placeholder="请输入新郎或者新娘名字" name="man" value="${planQuery.man}"/> <input value="查询档期" type="submit"   class="plan_btn"/>
 				</form>
 			</div>
+			<div class="sid_nav">
+				<%@ include file="../../jnh/wz/plugins/ad1000_100.jsp"%>
+			</div>
 			<div class="plan_con">
 				<c:choose>  
   

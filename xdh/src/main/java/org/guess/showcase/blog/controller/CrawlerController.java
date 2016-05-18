@@ -89,7 +89,6 @@ public class CrawlerController {
 		pageRequest.setOrderDir(Sort.DESC);
 		pageRequest.setOrderBy("id");
 		Page<CrawlerArticle> pageData = crawlerArticleService.findPage(pageRequest, andfilters, filters);
-		System.out.println(new Gson().toJson(pageData));
 		mav.addObject("pr", pageData.isFirstPage() ? page : page - 1);
 		mav.addObject("pn", pageData.isLastPage() ? page : page + 1);
 		mav.addObject("p", page);
