@@ -38,7 +38,7 @@
 								 <div class="control-group">
 									<label class="control-label">内容类型:</label>
 									<div class="controls">
-										<select name="contentType">
+										<select name="contentType" id="contentType">
 											<option value="1">请选择</option>
 											<option value="1">活动规则</option>
 											<option value="2">商品详情</option>
@@ -52,7 +52,7 @@
 								<div class="control-group">
 									<label class="control-label">产品类型:</label>
 									<div class="controls">
-										<select name="articleType">
+										<select name="articleType" id="articleType">
 											<option value="1">请选择</option>
 											<option value="1">砍价产品</option>
 											<option value="2">其他</option>
@@ -87,6 +87,18 @@
 	$(function(){
 		App.activeMenu("cms/cpa/list");
 		UE.getEditor('ueditor');
+
+		var contentType = "${obj.contentType}";
+		if(contentType != ""){
+			$("#contentType").val(contentType);
+		}
+
+		
+		var articleType = "${obj.articleType}";
+		if(articleType != ""){
+			$("#articleType").val(articleType);
+		}
+			
 	});
 </script>
 </body>

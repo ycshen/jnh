@@ -36,6 +36,7 @@ import org.guess.showcase.cpa.util.UserAgent;
 import org.guess.showcase.cpa.util.UserAgentUtil;
 import org.guess.sys.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -373,7 +374,7 @@ public class WebSiteFrontController {
 		ModelAndView mav = new ModelAndView("/front/jnh/wz/cpa/index");	
 		String content = "";
 		String title = "";
-		CpaArticle conCpa = cpaService.getCpaArticleByType(1, 1);
+		CpaArticle conCpa = cpaService.getCpaArticleByType(2, 1);
 		if(conCpa != null){
 			content = conCpa.getContent();
 		}
@@ -387,7 +388,6 @@ public class WebSiteFrontController {
 		mav.addObject("inviteId", inviteId);
 		List<CpaUser> rankList = this.getBargainRankingList();
 		mav.addObject("rankList", rankList);
-		
 		return mav;
 	}
 	
@@ -402,7 +402,7 @@ public class WebSiteFrontController {
 		mav.addObject("rankList", rankList);
 		String content = "";
 		String title = "";
-		CpaArticle conCpa = cpaService.getCpaArticleByType(1, 1);
+		CpaArticle conCpa = cpaService.getCpaArticleByType(2, 1);
 		if(conCpa != null){
 			content = conCpa.getContent();
 		}
@@ -427,7 +427,7 @@ public class WebSiteFrontController {
 		ModelAndView mav = new ModelAndView("/front/jnh/wz/cpa/wycj");
 		String content = "";
 		String title = "";
-		CpaArticle conCpa = cpaService.getCpaArticleByType(2, 1);
+		CpaArticle conCpa = cpaService.getCpaArticleByType(1, 1);
 		if(conCpa != null){
 			content = conCpa.getContent();
 		}
@@ -535,7 +535,7 @@ public class WebSiteFrontController {
 	 * @return
 	 */
 	@RequestMapping("/wz/kanSelf/{clickType}/{userId}/{beikanUserId}")
-	public ModelAndView kanSelf(@PathVariable("clickType") Integer clickType, @PathVariable("userId") Long userId,@PathVariable("beikanUserId") Long beikanUserId){
+	public ModelAndView kanSelf(@PathVariable("clickType") Integer clickType, @PathVariable("userId") Long userId,@PathVariable("beikanUserId") Long beikanUserId, String mobile){
 		ModelAndView mav = new ModelAndView();
 		List<CpaUser> rankList = this.getBargainRankingList();
 		mav.addObject("rankList", rankList);
@@ -709,6 +709,7 @@ public class WebSiteFrontController {
 			title = title.replaceAll("\\&[a-zA-Z]{0,9};", "").replaceAll("<[^>]*>", "");
 		}
 		mav.addObject("title", title);
+		mav.addObject("inviteId", 0);
 		return mav;
 	}
 	
@@ -740,7 +741,10 @@ public class WebSiteFrontController {
 		}
 
 		mav.addObject("cpaUser", cpaUser);
+		Long userId = cpaUser.getId();
+		List<CpaResult> list = this.getCpaResultByUserId(userId);
 
+		mav.addObject("resultList", list);
 		return mav;
 	}
 	
@@ -755,9 +759,10 @@ public class WebSiteFrontController {
 	 * @return
 	 */
 	@RequestMapping("/wz/weixinIndex/{index}")
-	public ModelAndView weixin_Baidu(@PathVariable String index){
+	public ModelAndView weixin_Baidu(@PathVariable String index, HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/front/jnh/wz/cpa/weixinIndex");
+		logService.addSiteListenerLog("weixin.52jnh.com", "微信营销", ServletUtils.getIpAddr(request), "");
 		return mav;
 	}
 }

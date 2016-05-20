@@ -88,6 +88,10 @@
 .imgClass img{
 	cursor: pointer;
 }
+
+img{
+	max-width: 100%;
+}
 </style>
 </head>
 <body>

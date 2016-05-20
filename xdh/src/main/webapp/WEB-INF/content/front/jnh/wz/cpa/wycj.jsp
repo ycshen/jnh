@@ -64,7 +64,8 @@
 		
 	}
 	.main_div_good_detail_con{
-	
+		width: 100%;
+		padding: 10px 10px 10px 10px;
 	}  
 	.main_div_form {
 		width: 100%;
@@ -138,7 +139,9 @@
 		  <div class="form-group">
 		    <input type="text" class="form-control" id="txtPhone" placeholder="请输入手机号" name="mobile" onkeyup="this.value=this.value.replace(/\D/g,'')" maxlength="11">
 		  </div>
-		  
+		  <div class="form-group" style="color:red;">
+		  	温馨提示：报名参加前请仔细阅读活动规则
+		  </div>
 		  <button type="botton" class="btn btn-danger" onclick="return register();">报名参与</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		  <button onclick="back();" type="button" class="btn btn-success">返回</button>
 		</form>
@@ -148,7 +151,7 @@
 					活动规则
 				</div>
 				<div class="main_div_good_detail_con">
-					${cpaArticle.content }
+					${content }
 				</div>
 			</div>
 	</div>

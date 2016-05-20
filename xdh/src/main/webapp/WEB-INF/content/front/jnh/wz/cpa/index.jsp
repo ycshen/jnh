@@ -15,6 +15,7 @@
 <%@ include file="../plugins/bootstrap.jsp"%>
 <script src="${ctx }/assets/js/layer/layer.js" type="text/javascript"></script>
 <style type="text/css">
+
 	.main_div{
 		width: 100%;
 		height: auto;
@@ -103,6 +104,7 @@
 		window.location.href = "${ctx}/wz/clickQuery/";
 	}
 	$(function(){
+		$("img").attr("class", "img-responsive");
 		$("#btnPlease").hide();
 		var isSuccess = '${isSuccess}';
 		if(isSuccess != ""){
@@ -125,7 +127,7 @@
 	<div class="main_div">
 		<div class="main_div_tou">
 			<div class="main_div_tou_img">
-				 <img src="${ctx}/assets/img/cpa/tou.jpg" class="img-responsive">
+				 <img src="${ctx}/assets/img/cpa/tou.png" class="img-responsive">
 			</div>
 			<div class="main_div_tou_time">
 				
@@ -149,37 +151,13 @@
 				<input onclick="join();"  type="button" value="&nbsp;我要参加&nbsp;&nbsp;" class="btn btn-danger" id="btnJoin"/>
 				<input onclick="query();" type="button" value="砍后价格查询" class="btn btn-danger" id="btnAfterBargain"/>
 			</div>
-			<div class="main_div_tip_list">
-				<table class="table">
-					<tr class="danger">
-						<td>亲友团</td>
-						<td>砍掉价格</td>
-						<td>砍后价格</td>
-					</tr>
-					<tr>
-						<td>老鼠爱大米</td>
-						<td>33.56</td>
-						<td>131</td>
-					</tr>
-					
-					<tr>
-						<td>老鼠爱大米</td>
-						<td>33.56</td>
-						<td>131</td>
-					</tr>
-					<tr>
-						<td>老鼠爱大米</td>
-						<td>33.56</td>
-						<td>131</td>
-					</tr>
-				</table>
-			</div>
+			
 			<div class="main_div_good_detail">
 				<div class="main_div_good_detail_title">
 					商品详情
 				</div>
 				<div class="main_div_good_detail_con">
-					${cpaArticle.content }
+					${content }
 				</div>
 			</div>
 			<div class="main_div_good_detail">

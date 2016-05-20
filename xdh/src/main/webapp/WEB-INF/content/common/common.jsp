@@ -8,3 +8,6 @@
 	request.setCharacterEncoding("UTF-8") ;
 %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" scope="page"/>
+<script type="text/javascript">
+	var ctx = '${ctx}';
+</script>

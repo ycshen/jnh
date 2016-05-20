@@ -26,7 +26,7 @@ public class CpaUserDaoImpl extends HibernateDao<CpaUser,Long> implements CpaUse
 
 	@Override
 	public List<CpaUser> getBargainRankingList() {
-		String sql = "from CpaUser ORDER BY newPrice desc limit 10";
+		String sql = "from CpaUser ORDER BY newPrice asc limit 10";
 		
 		List<CpaUser> list = getSession() .createQuery(sql).list();
 		
