@@ -99,6 +99,9 @@ img{
 	<div class="container">		
 		<div class="a_con1">
 			<div class="a_con1_left">
+				<%@ include file="search/searchInput.jsp"%>
+			</div>
+			<div class="a_con1_left">
 				<div class="a_title">
 					<h2>${crawlerArticle.title}</h2>
 				</div>

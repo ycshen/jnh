@@ -346,6 +346,12 @@
 				<artifactId>lucene-queryparser</artifactId>
 				<version>${lucene.version}</version>
 			</dependency>
+			<!-- IKAnalyzer-->
+			<dependency>
+				<groupId>org.wltea.analyzer</groupId>
+				<artifactId>IKAnalyzer2012FF</artifactId>
+				<version>u1</version>
+			</dependency>
 		</dependencies>
 	<build>
 		<finalName>xdh</finalName>

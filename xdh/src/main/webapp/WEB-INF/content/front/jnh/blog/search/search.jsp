@@ -70,6 +70,9 @@
 				<%@ include file="../page/crawlerArticleListPage.jsp"%>
 			</div> --%>
 			<div class="a_con1_left">
+				<%@ include file="searchInput.jsp"%>
+			</div>
+			<div class="a_con1_left">
 				为你搜索到${searchList.size()}条数据~~~~
 			</div>
 			<div class="a_con1_left">
