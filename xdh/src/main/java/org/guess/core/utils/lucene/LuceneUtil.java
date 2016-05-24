@@ -8,8 +8,8 @@ public class LuceneUtil {
 	/**
 	 * lucene版本
 	 */
-	public static Version version = Version.LUCENE_44;
-	public final static String SEARCH_FIELD = "title"; //搜索字段
+	public static Version VERSION = Version.LUCENE_44;
+	public final static String SEARCH_FIELD = "content"; //搜索字段
     /**
      * 索引的存放位置 
      * @param request

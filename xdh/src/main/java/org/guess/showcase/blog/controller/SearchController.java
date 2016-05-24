@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.guess.core.utils.lucene.LuceneSearcher;
 import org.guess.showcase.blog.model.SearchResult;
 import org.guess.showcase.blog.service.SearchService;
@@ -33,16 +34,21 @@ public class SearchController {
 	public ModelAndView search(@ModelAttribute SearchResult searchResult, HttpServletRequest request){
 		ModelAndView mav = new ModelAndView("/front/jnh/blog/search/search");
 		String queryString = searchResult.getQueryString();
+		if(StringUtils.isBlank(queryString)){
+			return mav;
+		}
+		
 		//查询数据库的数据
-		List<SearchResult> searchList = searchService.queryByLucene(queryString);
+		//List<SearchResult> list = searchService.queryByLucene(queryString);
 		try {
 			//Lucene检索
-			 searchList = LuceneSearcher.search(request, searchList, queryString);
+			//LuceneSearcher.batchAddIndex(request, list);
+			List<SearchResult> list = LuceneSearcher.queryIndex(request, queryString);
+			mav.addObject("searchList", list);	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		mav.addObject("searchList", searchList);	
 		return mav;
 	}
 	

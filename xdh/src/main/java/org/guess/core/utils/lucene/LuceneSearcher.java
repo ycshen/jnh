@@ -15,95 +15,147 @@ import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
-import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.guess.showcase.blog.model.SearchResult;
 
 public class LuceneSearcher {
+	public static String indexDir = null;
+	public static Analyzer analyzer = null;
+	public static Directory directory = null;
+	public static IndexWriter indexWriter = null;
+
 	/**
-	 * 创建索引
-	 * 
-	 * @param results 搜索结果集合
+	 * 查询索引
+	 * @param request 请求
+	 * @param queryString 查询字符串
+	 * @return 返回查询结果
+	 * @throws Exception 异常
+	 */
+	public static List<SearchResult> queryIndex(HttpServletRequest request, String queryString) throws Exception{
+		indexDir = LuceneUtil.getIndexStorePath(request);
+		analyzer = initAnalyzer();
+        directory = FSDirectory.open(new File(indexDir));
+        IndexReader indexReader = DirectoryReader.open(directory);
+        IndexSearcher indexSearcher = new IndexSearcher(indexReader);
+        QueryParser parser = new QueryParser(LuceneUtil.VERSION, LuceneUtil.SEARCH_FIELD, analyzer);
+        Query query = parser.parse(queryString);
+        ScoreDoc[] scoreDocs = indexSearcher.search(query, null, 1000).scoreDocs;
+        List<SearchResult> resultList = new LinkedList<SearchResult>();
+        SearchResult searchResult = null;
+        for (ScoreDoc scoreDoc : scoreDocs) {
+        	searchResult = new SearchResult();
+        	Document hitDoc = indexSearcher.doc(scoreDoc.doc);
+        	String id = hitDoc.get("id");
+        	String title = hitDoc.get("title");
+        	String desc = hitDoc.get("desc");
+        	searchResult.setId(id);
+        	searchResult.setResultDesc(desc);
+        	searchResult.setResultTitle(title);
+        	resultList.add(searchResult);
+		}
+        
+        indexReader.close();
+        directory.close();
+        
+        return resultList;
+	}
+	
+	/**
+	 * 初始化分词器
+	 * @return
+	 */
+	private static Analyzer initAnalyzer(){
+		Analyzer analyzer = new StandardAnalyzer(LuceneUtil.VERSION);
+		
+		return analyzer;
+	}
+	
+	/**
+	 * 添加索引
+	 * @param request
+	 * @param searchResult 添加结果
 	 * @throws Exception
 	 */
-	private static void createIndex(String indexPath, Analyzer analyzer, List<SearchResult> results) throws Exception {
+	public static void addIndex(HttpServletRequest request, SearchResult searchResult) throws Exception{
+		analyzer = initAnalyzer();
+		indexDir = LuceneUtil.getIndexStorePath(request);
+        directory = FSDirectory.open(new File(indexDir));
+        String id = searchResult.getId();
+        String content = searchResult.getResultContent();
+        String desc = searchResult.getResultDesc();
+        String title = searchResult.getResultTitle();
+        IndexWriterConfig config = new IndexWriterConfig(LuceneUtil.VERSION, analyzer);
+        indexWriter = new IndexWriter(directory, config);
+        Document doc = new Document();
+        doc.add(new TextField("id", id, Store.YES));
+        doc.add(new TextField("content", content, Store.YES));
+        doc.add(new TextField("desc", desc, Store.YES));
+        doc.add(new TextField("title", title, Store.YES));
+        indexWriter.addDocument(doc);
+        indexWriter.commit();
+        indexWriter.close();
+	}
+	
+	/**
+	 * 更新索引
+	 * @param request
+	 * @param searchResult
+	 * @throws Exception
+	 */
+    public static void updateIndex(HttpServletRequest request, SearchResult searchResult) throws Exception {
+		analyzer = initAnalyzer();
+		indexDir = LuceneUtil.getIndexStorePath(request);
+		directory = FSDirectory.open(new File(indexDir));
+		IndexWriterConfig config = new IndexWriterConfig(LuceneUtil.VERSION, analyzer);
+		indexWriter = new IndexWriter(directory, config); 
+		String id = searchResult.getId();
+	    String content = searchResult.getResultContent();
+	    String desc = searchResult.getResultDesc();
+	    String title = searchResult.getResultTitle();
+		Document doc = new Document();
+		doc.add(new TextField("id", id, Store.YES));
+        doc.add(new TextField("content", content, Store.YES));
+        doc.add(new TextField("desc", desc, Store.YES));
+        doc.add(new TextField("title", title, Store.YES));
 		
-		Directory dire = FSDirectory.open(new File(indexPath));
-		IndexWriterConfig iwc = new IndexWriterConfig(LuceneUtil.version, analyzer);
-		IndexWriter indexWriter = new IndexWriter(dire, iwc);
-		addDoc(indexWriter, results);
+		indexWriter.updateDocument(new Term("id", id), doc);
 		indexWriter.close();
-	}
-
+    }
+    
 	/**
-	 * 动态添加Document
-	 * 
-	 * @param indexWriter
-	 * @param results 把文章加入索引
+	 * 删除索引
+	 * @param request
+	 * @param searchResult
 	 * @throws Exception
 	 */
-	private static void addDoc(IndexWriter indexWriter, List<SearchResult> results) throws Exception {
-		for (SearchResult sr : results) {
-			Document doc = new Document();
-			String content = sr.getResultContent();
-			String title = sr.getResultTitle();
-			String id = sr.getId();
-			String desc = sr.getResultDesc();
-			doc.add(new TextField("content", content, Store.YES));
-			doc.add(new TextField("title", title, Store.YES));
-			doc.add(new TextField("id", id, Store.YES));
-			doc.add(new TextField("desc", desc, Store.YES));
-			indexWriter.addDocument(doc);
-			indexWriter.commit();
-		}
-	}
-
+    public static void deleteIndex(HttpServletRequest request, SearchResult searchResult) throws Exception {
+        analyzer = initAnalyzer();
+        indexDir = LuceneUtil.getIndexStorePath(request);
+        directory = FSDirectory.open(new File(indexDir));
+        IndexWriterConfig config = new IndexWriterConfig(LuceneUtil.VERSION, analyzer);
+        indexWriter = new IndexWriter(directory, config);
+        String id = searchResult.getId();
+        indexWriter.deleteDocuments(new Term("id", id));  
+        indexWriter.close();
+    }
+	
 	/**
-	 * 搜索
-	 * 
-	 * @param query
+	 * 批量建立索引
+	 * @param request
+	 * @param list
 	 * @throws Exception
 	 */
-	private static List<SearchResult> search(String indexPath, Query query) throws Exception {
-		Directory dire = FSDirectory.open(new File(indexPath));
-		IndexReader indexReader = DirectoryReader.open(dire);
-		IndexSearcher indexSearcher = new IndexSearcher(indexReader);
-		TopDocs td = indexSearcher.search(query, 1000);
-		ScoreDoc[] scoreDocs = td.scoreDocs;
-		Document document = null;
-		String title = "";
-		String id = "";
-		String desc = "";
-		List<SearchResult> searchResultList = new LinkedList<SearchResult>();
-		SearchResult sr = null;
-		for (ScoreDoc sdoc : scoreDocs) {
-			sr = new SearchResult();
-			document = indexSearcher.doc(sdoc.doc);
-			title = document.getField("title").stringValue();
-			id = document.getField("id").stringValue();
-			desc = document.getField("desc").stringValue();
-			sr.setId(id);
-			sr.setResultDesc(desc);
-			sr.setResultTitle(title);
-			searchResultList.add(sr);
-		}
-		
-		return searchResultList;
-	}
-
-	public static List<SearchResult> search(HttpServletRequest request, List<SearchResult> results, String queryString) throws Exception, Exception{
-		Analyzer analyzer = new StandardAnalyzer(LuceneUtil.version);
-		String indexPath = LuceneUtil.getIndexStorePath(request);
-		createIndex(indexPath, analyzer, results);
-		QueryParser parser = new QueryParser(LuceneUtil.version, LuceneUtil.SEARCH_FIELD, analyzer);
-		Query query = parser.parse(queryString);
-		List<SearchResult> list = search(indexPath, query);
-		
-		return list;
-	}
+    public static void batchAddIndex(HttpServletRequest request, List<SearchResult> list) throws Exception {
+        if(list != null && list.size() > 0){
+        	for (SearchResult searchResult : list) {
+				addIndex(request, searchResult);
+			}
+        }
+    }
 }
