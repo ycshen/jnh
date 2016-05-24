@@ -23,6 +23,7 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.guess.showcase.blog.model.SearchResult;
+import org.wltea.analyzer.lucene.IKAnalyzer;
 
 public class LuceneSearcher {
 	public static String indexDir = null;
@@ -71,8 +72,8 @@ public class LuceneSearcher {
 	 * @return
 	 */
 	private static Analyzer initAnalyzer(){
-		Analyzer analyzer = new StandardAnalyzer(LuceneUtil.VERSION);
-		
+		//Analyzer analyzer = new StandardAnalyzer(LuceneUtil.VERSION);
+		Analyzer analyzer = new IKAnalyzer(true);
 		return analyzer;
 	}
 	

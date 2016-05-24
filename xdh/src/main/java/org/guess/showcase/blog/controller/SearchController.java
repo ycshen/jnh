@@ -1,6 +1,5 @@
 package org.guess.showcase.blog.controller;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,10 +38,10 @@ public class SearchController {
 		}
 		
 		//查询数据库的数据
-		//List<SearchResult> list = searchService.queryByLucene(queryString);
+		//List<SearchResult> qlist = searchService.queryByLucene(queryString);
 		try {
 			//Lucene检索
-			//LuceneSearcher.batchAddIndex(request, list);
+			//LuceneSearcher.batchAddIndex(request, qlist);
 			List<SearchResult> list = LuceneSearcher.queryIndex(request, queryString);
 			mav.addObject("searchList", list);	
 		} catch (Exception e) {
