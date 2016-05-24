@@ -17,8 +17,10 @@ import org.guess.core.utils.DateUtil;
 import org.guess.core.utils.FileUtils;
 import org.guess.core.utils.HttpUtil;
 import org.guess.core.utils.UuidUtil;
+import org.guess.core.utils.lucene.LuceneSearcher;
 import org.guess.core.utils.web.ServletUtils;
 import org.guess.showcase.blog.model.CrawlerArticle;
+import org.guess.showcase.blog.model.SearchResult;
 import org.guess.showcase.blog.service.CrawlerArticleService;
 import org.guess.showcase.cms.model.ClickAppraise;
 import org.guess.showcase.cms.service.ClickAppraiseService;
@@ -302,11 +304,41 @@ public class CrawlerController {
 	        crawlerArticle.setContent(content);
 	        crawlerArticle.setWebsiteName("陈鹏的博客");
 	        crawlerArticle.setDescrible(this.getDescByContent(content) + "......");
-	        //System.out.println(new Gson().toJson(crawlerArticle));
-			crawlerArticleService.save(crawlerArticle);
+			//crawlerArticleService.save(crawlerArticle);
+	        this.saveArticle(crawlerArticle, request);
 		} catch (Exception e) {
 			throw e;
 		}
+	}
+	
+	/**
+	 * 保存文章
+	 * @param crawlerArticle
+	 */
+	private void saveArticle(CrawlerArticle crawlerArticle, HttpServletRequest request){
+		try {
+			crawlerArticleService.save(crawlerArticle);
+			this.addIndex(crawlerArticle, request);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	/**
+	 * 添加索引
+	 * @param ca
+	 * @param request
+	 * @throws Exception
+	 */
+	private void addIndex(CrawlerArticle ca, HttpServletRequest request) throws Exception{
+		SearchResult searchResult = new SearchResult();
+		searchResult.setId(ca.getId().toString());
+		searchResult.setResultContent(ca.getContent());
+		searchResult.setResultDesc(ca.getDescrible());
+		searchResult.setResultTitle(ca.getTitle());
+		LuceneSearcher.addIndex(request, searchResult);
 	}
 	
 	/**
@@ -372,7 +404,9 @@ public class CrawlerController {
 	        crawlerArticle.setContent(content);
 	        crawlerArticle.setWebsiteName("javaseo");
 	        crawlerArticle.setDescrible(this.getDescByContent(content) + "......");
-			crawlerArticleService.save(crawlerArticle);
+			//crawlerArticleService.save(crawlerArticle);
+
+	        this.saveArticle(crawlerArticle, request);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

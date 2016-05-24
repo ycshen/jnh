@@ -14,7 +14,9 @@ import org.guess.core.orm.Page;
 import org.guess.core.orm.PageRequest.Sort;
 import org.guess.core.orm.PropertyFilter;
 import org.guess.core.utils.FileUtils;
+import org.guess.core.utils.lucene.LuceneSearcher;
 import org.guess.showcase.blog.model.CrawlerArticle;
+import org.guess.showcase.blog.model.SearchResult;
 import org.guess.showcase.blog.service.CrawlerArticleService;
 import org.guess.showcase.cms.model.Article;
 import org.guess.showcase.cms.model.RecomendItems;
@@ -70,7 +72,7 @@ public class ArticleController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/edit")
-	public ModelAndView edit(
+	public ModelAndView edit(HttpServletRequest request,
 			ModelAndView mav,
 			Article article,
 			@RequestParam(value = "imgFile", required = false) MultipartFile imgFile)
@@ -90,6 +92,7 @@ public class ArticleController {
 			crawlerArticle.setUrl("http://www.52jnh.com");
 			crawlerArticle.setWebsiteName("小青年博客");
 			crawlerArticleService.save(crawlerArticle);
+			this.addIndex(crawlerArticle, request);
 		}else{
 			if (!imgFile.isEmpty()) {
 				String uuidName = FileUtils.uuidFileName(imgFile.getOriginalFilename());
@@ -111,6 +114,22 @@ public class ArticleController {
 		return mav;
 	}
 
+	/**
+	 * 添加索引
+	 * @param ca
+	 * @param request
+	 * @throws Exception
+	 */
+	private void addIndex(CrawlerArticle ca, HttpServletRequest request) throws Exception{
+		SearchResult searchResult = new SearchResult();
+		searchResult.setId(ca.getId().toString());
+		searchResult.setResultContent(ca.getContent());
+		searchResult.setResultDesc(ca.getDescrible());
+		searchResult.setResultTitle(ca.getTitle());
+		LuceneSearcher.addIndex(request, searchResult);
+	}
+	
+	
 	@RequestMapping(value = "/delete/{id}")
 	public String delete(@PathVariable("id") Long id) throws Exception {
 		aService.removeById(id);

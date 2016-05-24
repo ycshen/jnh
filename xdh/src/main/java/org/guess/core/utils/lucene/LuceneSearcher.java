@@ -72,7 +72,7 @@ public class LuceneSearcher {
 	 */
 	private static Analyzer initAnalyzer(){
 		Analyzer analyzer = new StandardAnalyzer(LuceneUtil.VERSION);
-		
+		//Analyzer analyzer = new 
 		return analyzer;
 	}
 	
